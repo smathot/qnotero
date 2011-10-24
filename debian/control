@@ -1,0 +1,21 @@
+Source: qnotero
+Section: science
+Priority: extra
+Maintainer: Sebastiaan Mathot <s.mathot@cogsci.nl>
+Uploaders: Sebastiaan Mathot <s.mathot@cogsci.nl>
+Build-Depends: debhelper (>= 7.0.50~), python-support, pyqt4-dev-tools, python-all
+XS-Python-Version: >= 2.6
+Standards-Version: 3.9.1
+Homepage: http://www.cogsci.nl/
+
+Package: qnotero
+Architecture: all
+XB-Python-Version: ${python:Versions}
+Depends: ${misc:Depends}, ${python:Depends}, python-qt4
+Recommends: 
+Description: Qnotero is a sidekick to Zotero, the open-source reference manager.
+  Zotero is an excellent tool for managing your reference, but it lacks a simple
+  and direct way to search your references and open attached PDFs at the click
+  of a button. Qnotero lives in the system tray of your desktop and provides
+  quick access to your Zotero database, even if Zotero is not running.
+

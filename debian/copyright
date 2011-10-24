@@ -1,0 +1,18 @@
+Format-Specification: http://svn.debian.org/wsvn/dep/web/deps/dep5.mdwn?op=file&rev=135
+Name: qnotero
+Maintainer: Sebastiaan Mathot <s.mathot@cogsci.nl>
+Source: http://www.cogsci.nl/
+
+Files: *
+Copyright: 2010-2011, Sebastiaan Mathot
+License: GPL-3
+ On Debian systems, the full text of the GNU General Public License version 3
+ can be found in the file `/usr/share/common-licenses/GPL-3'.
+
+Files: resources/default/*.png
+Copyright: 2010-2011 Matthieu James <matthieu.james@gmail.com>
+Licenses: GPL-3
+
+Files: resources/elementary/*.png
+Copyright: 2010-2011 DanRabbit <daniel.p.fore@gmail.com>
+Licenses: GPL-3
