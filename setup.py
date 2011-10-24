@@ -33,19 +33,20 @@ setup(name="qnotero",
 		"libqnotero", \
 		"libzotero", \
 		"libqnotero._themes", \
+		"libzotero._noteProvider", \
 		],
 	package_dir = { \
 		"libqnotero" : "libqnotero", \
 		"libzotero" : "libzotero", \
 		"libqnotero._themes" : "libqnotero/_themes", \
+		"libzotero._noteProvider" : "libzotero/_noteProvider", \
 		},
 	data_files=[
 		("/usr/share/qnotero", ["COPYING"]), \
 		("/usr/share/applications", ["data/qnotero.desktop"]), \
-		("/usr/share/qnotero/resources", \
-			glob.glob("resources/default/*")
-			+ glob.glob("resources/elementary/*"))		
+		("/usr/share/qnotero/resources/default", \
+			glob.glob("resources/default/*")), \
+		("/usr/share/qnotero/resources/elementary", \
+			glob.glob("resources/elementary/*")), \
 		]
 	)
-
-
