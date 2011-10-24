@@ -1,0 +1,17 @@
+[Desktop Entry]
+Name=Qnotero
+Comment=Quick access to your Zotero references
+TryExec=qnotero
+Exec=qnotero
+Icon=accessories-dictionary
+Type=Application
+X-GNOME-DocPath=
+X-GNOME-Bugzilla-Bugzilla=
+X-GNOME-Bugzilla-Product=
+X-GNOME-Bugzilla-Component=
+X-GNOME-Bugzilla-Version=
+Categories=GNOME;GTK;Utility;
+StartupNotify=false
+X-Ubuntu-Gettext-Domain=qnotero
+Name[en_US]=Qnotero
+

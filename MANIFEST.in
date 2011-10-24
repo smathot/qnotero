@@ -1,0 +1,4 @@
+include data/qnotero.desktop
+recursive-include resources
+recursive-exclude *.pyc
+recursive-include ~*
