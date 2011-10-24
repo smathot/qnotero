@@ -1,0 +1,18 @@
+QNOTERO
+=======
+Copyright 2011 Sebastiaan Mathot
+<http://www.cogsci.nl/>
+
+ABOUT
+=====
+Qnotero is a sidekick to Zotero, the open-source reference manager. Zotero is an
+excellent tool for managing your reference, but it lacks a simple and direct
+way to search your references and open attached PDFs at the click of a button.
+Qnotero lives in the system tray of your desktop and provides quick access to
+your Zotero database, even if Zotero is not running.
+
+SO WHAT HAPPENED TO GNOTERO?
+============================
+Qnotero is the successort to Gnotero. The name change 'G' -> 'Q' reflects that
+the GUI now uses Qt4, rather than Gtk as the underlying toolkit. So, basically,
+nothing bad happened to Gnotero, it just got a bit better!
