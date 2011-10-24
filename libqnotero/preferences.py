@@ -56,7 +56,6 @@ class Preferences(QDialog):
 		import libqnotero._themes
 		themePath = os.path.dirname(libqnotero._themes.__file__)
 		for _, theme, _ in pkgutil.iter_modules([themePath]):
-			print theme + "X"
 			self.ui.comboBoxTheme.addItem(theme)
 			if theme == getConfig("theme").lower():
 				self.ui.comboBoxTheme.setCurrentIndex(i)
