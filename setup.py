@@ -31,11 +31,13 @@ setup(name="qnotero",
 	scripts = ["qnotero"],
 	packages = [ \
 		"libqnotero", \
-		"libzotero" \
+		"libzotero", \
+		"libqnotero._themes", \
 		],
 	package_dir = { \
 		"libqnotero" : "libqnotero", \
 		"libzotero" : "libzotero", \
+		"libqnotero._themes" : "libqnotero/_themes", \
 		},
 	data_files=[
 		("/usr/share/qnotero", ["COPYING"]), \
