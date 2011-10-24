@@ -46,7 +46,7 @@ class QnoteroResults(QListWidget):
 		if e.button() == Qt.RightButton:
 			note = self.itemAt(e.pos()).zoteroItem.get_note()
 			if note != None:
-				self.qnotero.openNote(note)
+				self.qnotero.previewNote(note)
 			return
 			
 		QListWidget.mousePressEvent(self, e)		

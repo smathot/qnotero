@@ -92,19 +92,11 @@ class Qnotero(QMainWindow):
 				
 		self.ui.labelNoteAvailable.hide()
 		
-	def openNote(self, note):
+	def openNote(self):
 	
-		"""
-		Show the note preview
-		
-		Arguments:
-		note -- the Note to preview
-		"""
+		"""Open the active note"""
 	
-		self.ui.labelNote.setText(note.preview)
-		self.hideNoteHint()
-		self.ui.widgetNote.show()
-		self.ui.listWidgetResults.hide()
+		self.activeNote.open()
 			
 	def moveSafe(self, topLeft):
 	
@@ -176,6 +168,21 @@ class Qnotero(QMainWindow):
 		
 		from libqnotero.preferences import Preferences
 		Preferences(self).exec_()		
+		
+	def previewNote(self, note):
+	
+		"""
+		Show the note preview
+		
+		Arguments:
+		note -- the Note to preview
+		"""
+	
+		self.activeNote = note
+		self.ui.labelNote.setText(note.preview)
+		self.hideNoteHint()
+		self.ui.widgetNote.show()
+		self.ui.listWidgetResults.hide()		
 		
 	def reInit(self):
 	
@@ -277,6 +284,7 @@ class Qnotero(QMainWindow):
 		self.ui.listWidgetResults.itemActivated.connect(self.runResult)				
 		self.ui.widgetNote.hide()
 		self.ui.labelNoteAvailable.hide()		
+		self.ui.pushButtonOpenNote.clicked.connect(self.openNote)
 		
 	def showNoteHint(self):
 	
