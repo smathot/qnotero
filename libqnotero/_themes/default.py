@@ -35,17 +35,8 @@ class Default:
 		"""
 	
 		self.qnotero = qnotero		
-		self._themeFolder = os.path.join(os.path.dirname(sys.argv[0]), \
-			"resources", self.themeFolder())
-		self._iconExt = self.iconExt()
-		if not os.path.exists(self._themeFolder):
-			self._themeFolder = os.path.join("/usr/share/qnotero/resources/", \
-				self.themeFolder())
-			if not os.path.exists(self._themeFolder):
-				raise QnoteroException("Failed to find resource folder!")
-		print "libqnotero._themes.default.__init__(): using '%s'" \
-			% self._themeFolder
-		self.setStyleSheet()
+		self.setThemeFolder()
+		self.setStyleSheet()		
 		self.qnotero.setWindowFlags(Qt.Popup)
 		self.qnotero.ui.listWidgetResults.setHorizontalScrollBarPolicy( \
 			Qt.ScrollBarAlwaysOff)
@@ -138,6 +129,21 @@ class Default:
 		self.qnotero.setStyleSheet(open(os.path.join( \
 			self._themeFolder, "stylesheet.qss")).read())
 			
+	def setThemeFolder(self):
+		
+		"""Initialize the theme folder"""
+		
+		self._themeFolder = os.path.join(os.path.dirname(sys.argv[0]), \
+			"resources", self.themeFolder())
+		self._iconExt = self.iconExt()
+		if not os.path.exists(self._themeFolder):
+			self._themeFolder = os.path.join("/usr/share/qnotero/resources/", \
+				self.themeFolder())
+			if not os.path.exists(self._themeFolder):
+				raise QnoteroException("Failed to find resource folder!")
+		print "libqnotero._themes.default.__init__(): using '%s'" \
+			% self._themeFolder
+		
 	def themeFolder(self):
 	
 		"""
