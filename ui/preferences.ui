@@ -6,25 +6,25 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>371</width>
-    <height>201</height>
+    <width>460</width>
+    <height>296</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Preferences</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="1" column="0">
+   <item row="2" column="0">
     <widget class="QLabel" name="label">
      <property name="text">
       <string>Zotero folder</string>
      </property>
     </widget>
    </item>
-   <item row="1" column="1">
+   <item row="2" column="1">
     <widget class="QLineEdit" name="lineEditZoteroPath"/>
    </item>
-   <item row="5" column="0" colspan="4">
+   <item row="7" column="0" colspan="4">
     <widget class="QDialogButtonBox" name="buttonBox">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
@@ -34,35 +34,35 @@
      </property>
     </widget>
    </item>
-   <item row="1" column="2">
+   <item row="2" column="2">
     <widget class="QPushButton" name="pushButtonZoteroPathBrowse">
      <property name="text">
       <string>Browse</string>
      </property>
     </widget>
    </item>
-   <item row="1" column="3">
+   <item row="2" column="3">
     <widget class="QPushButton" name="pushButtonZoteroPathAutoDetect">
      <property name="text">
       <string>Auto-detect</string>
      </property>
     </widget>
    </item>
-   <item row="4" column="0" colspan="4">
+   <item row="5" column="0" colspan="4">
     <widget class="QCheckBox" name="checkBoxAttachToSysTray">
      <property name="text">
       <string>Attach Qnotero window to system tray icon</string>
      </property>
     </widget>
    </item>
-   <item row="3" column="0">
+   <item row="4" column="0">
     <widget class="QLabel" name="label_2">
      <property name="text">
       <string>Theme</string>
      </property>
     </widget>
    </item>
-   <item row="3" column="1" colspan="3">
+   <item row="4" column="1" colspan="3">
     <widget class="QComboBox" name="comboBoxTheme"/>
    </item>
    <item row="0" column="0" colspan="4">
@@ -90,10 +90,27 @@ p, li { white-space: pre-wrap; }
      </layout>
     </widget>
    </item>
-   <item row="2" column="0" colspan="4">
+   <item row="3" column="0" colspan="4">
     <widget class="QLabel" name="labelLocatePath">
      <property name="text">
       <string>TextLabel</string>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="0" colspan="4">
+    <widget class="QCheckBox" name="checkBoxAutoUpdateCheck">
+     <property name="text">
+      <string>Automatically check for updates on start-up</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0" colspan="4">
+    <widget class="QLabel" name="labelFirstRun">
+     <property name="text">
+      <string>This appears to be the first time that you run Qnotero! Getting started is easy, all you need to do is locate the Zotero folder. if you don't know where the Zotero folder is located, you can use the auto-detect function (but this may take a while).</string>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
      </property>
     </widget>
    </item>
