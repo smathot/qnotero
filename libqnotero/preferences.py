@@ -27,31 +27,36 @@ class Preferences(QDialog):
 
 	"""Qnotero preferences dialog"""
 
-	def __init__(self, qnotero):
+	def __init__(self, qnotero, firstRun=False):
 	
 		"""
 		Constructor
 		
 		Arguments:
 		qnotero -- a Qnotero instance
+		
+		Keyword arguments:
+		firstRun -- indicates if the first run message should be shown
+					(default=False)
 		"""
 	
 		QDialog.__init__(self)
-		self.qnotero = qnotero
+		self.qnotero = qnotero		
 		self.ui = Ui_Preferences()		
 		self.ui.setupUi(self)
+		self.ui.labelLocatePath.hide()
+		if not firstRun:
+			self.ui.labelFirstRun.hide()						
 		self.ui.labelTitleMsg.setText( \
 			self.ui.labelTitleMsg.text().replace("[version]", \
-			self.qnotero.version))
-		self.setStyleSheet(self.qnotero.styleSheet())		
+			self.qnotero.version))		
 		self.ui.pushButtonZoteroPathAutoDetect.clicked.connect( \
 			self.zoteroPathAutoDetect)
 		self.ui.pushButtonZoteroPathBrowse.clicked.connect( \
 			self.zoteroPathBrowse)					
 		self.ui.checkBoxAttachToSysTray.setChecked(getConfig("attachToSysTray"))
+		self.ui.checkBoxAutoUpdateCheck.setChecked(getConfig("autoUpdateCheck"))
 		self.ui.lineEditZoteroPath.setText(getConfig("zoteroPath"))
-		self.ui.labelLocatePath.hide()
-		
 		i = 0
 		import libqnotero._themes
 		themePath = os.path.dirname(libqnotero._themes.__file__)
@@ -60,6 +65,8 @@ class Preferences(QDialog):
 			if theme == getConfig("theme").lower():
 				self.ui.comboBoxTheme.setCurrentIndex(i)
 			i += 1		
+		self.setStyleSheet(self.qnotero.styleSheet())
+		self.adjustSize()		
 				
 	def accept(self):
 	
@@ -69,7 +76,9 @@ class Preferences(QDialog):
 			return
 		setConfig("firstRun", False)
 		setConfig("attachToSysTray", \
-			self.ui.checkBoxAttachToSysTray.isChecked())	
+			self.ui.checkBoxAttachToSysTray.isChecked())
+		setConfig("autoUpdateCheck", \
+			self.ui.checkBoxAutoUpdateCheck.isChecked())		
 		setConfig("zoteroPath", unicode(self.ui.lineEditZoteroPath.text()))
 		setConfig("theme", \
 			unicode(self.ui.comboBoxTheme.currentText()).capitalize())

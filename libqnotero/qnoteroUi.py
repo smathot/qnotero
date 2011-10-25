@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui/qnotero.ui'
 #
-# Created: Mon Oct 24 17:14:30 2011
+# Created: Tue Oct 25 16:50:08 2011
 #      by: PyQt4 UI code generator 4.8.5
 #
 # WARNING! All changes made in this file will be lost!
@@ -35,7 +35,7 @@ class Ui_Qnotero(object):
         self.horizontalLayout.setMargin(0)
         self.horizontalLayout.setMargin(0)
         self.horizontalLayout.setObjectName(_fromUtf8("horizontalLayout"))
-        self.lineEditQuery = QtGui.QLineEdit(self.widgetSearch)
+        self.lineEditQuery = QnoteroQuery(self.widgetSearch)
         self.lineEditQuery.setMinimumSize(QtCore.QSize(0, 32))
         self.lineEditQuery.setFrame(False)
         self.lineEditQuery.setObjectName(_fromUtf8("lineEditQuery"))
@@ -117,3 +117,4 @@ class Ui_Qnotero(object):
         pass
 
 from qnoteroResults import QnoteroResults
+from qnoteroQuery import QnoteroQuery

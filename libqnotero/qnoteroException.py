@@ -15,25 +15,14 @@ You should have received a copy of the GNU General Public License
 along with qnotero.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-from libqnotero._themes.default import Default
+class QnoteroException(Exception):
 
-class Elementary(Default):
+	"""A simple custom exception"""
 
-	"""The Elementary Qnotero theme"""	
-	
-	def __init__(self, qnotero):
-	
-		Default.__init__(self, qnotero)	
-		
-	def iconExt(self):	
-		
-		return ".svg"		
-				
-	def roundness(self):
-	
-		return 2
-		
-	def themeFolder(self):
-		
-		return "elementary"	
-		
+	def __init__(self, value):
+
+		self.value = value		
+
+	def __str__(self):
+
+		return str(self.value)

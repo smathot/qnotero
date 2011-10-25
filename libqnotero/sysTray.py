@@ -16,7 +16,7 @@ along with qnotero.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 from PyQt4.QtGui import QSystemTrayIcon, QMenu
-from PyQt4.QtCore import Qt
+from PyQt4.QtCore import Qt, QObject, SIGNAL
 from libqnotero.config import getConfig
 
 class SysTray(QSystemTrayIcon):
@@ -44,6 +44,7 @@ class SysTray(QSystemTrayIcon):
 			"Close", self.qnotero.close)
 		self.setContextMenu(self.menu)
 		self.activated.connect(self.activate)
+		QObject.connect(self, SIGNAL("listenerActivated"), self.activate)
 				
 	def activate(self, reason=None):
 	

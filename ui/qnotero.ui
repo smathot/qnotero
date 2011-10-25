@@ -34,7 +34,7 @@
         <number>0</number>
        </property>
        <item>
-        <widget class="QLineEdit" name="lineEditQuery">
+        <widget class="QnoteroQuery" name="lineEditQuery">
          <property name="minimumSize">
           <size>
            <width>0</width>
@@ -169,6 +169,11 @@
    <class>QnoteroResults</class>
    <extends>QListWidget</extends>
    <header>qnoteroResults.h</header>
+  </customwidget>
+  <customwidget>
+   <class>QnoteroQuery</class>
+   <extends>QLineEdit</extends>
+   <header>qnoteroQuery.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

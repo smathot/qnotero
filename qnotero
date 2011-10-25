@@ -19,13 +19,29 @@ along with qnotero.  If not, see <http://www.gnu.org/licenses/>.
 
 if __name__ == "__main__":
 
-	import sys
-	from libqnotero.qnotero import Qnotero
-	from PyQt4.QtGui import QApplication
-	
-	reset = "--reset" in sys.argv
+	# The listener will fail if another instance of Qnotero is already running.
+	# In that case we send an activate signal, to pop up the Qnotero window, and
+	# exit.
+	from libqnotero.listener import Listener
+	try:
+		listener = Listener()
+	except:
+		from libqnotero.config import getConfig
+		import socket
+		sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+		sock.sendto("activate", ("localhost", getConfig("listenerPort")) )
+		exit(0)			
 		
+	# Normal start of Qnotero
+	import sys
+	from libqnotero.qnotero import Qnotero	
+	from PyQt4.QtGui import QApplication
+	reset = "--reset" in sys.argv			
 	app = QApplication(sys.argv)
 	app.setQuitOnLastWindowClosed(False)
-	qnotero = Qnotero(systray=True, debug=True, reset=reset)		
+	qnotero = Qnotero(systray=True, debug=True, reset=reset)
+	qnotero.listener = listener
+	listener.qnotero = qnotero
+	listener.start()
 	sys.exit(app.exec_())
+	

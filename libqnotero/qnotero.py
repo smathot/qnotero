@@ -18,7 +18,8 @@ along with qnotero.  If not, see <http://www.gnu.org/licenses/>.
 import sys
 import os
 import subprocess
-from PyQt4.QtGui import QMainWindow, QListWidgetItem, QLabel, QDesktopWidget
+from PyQt4.QtGui import QMainWindow, QListWidgetItem, QLabel, QDesktopWidget, \
+	QMessageBox
 from PyQt4.QtCore import QSettings, QSize
 from libqnotero.sysTray import SysTray
 from libqnotero.config import saveConfig, restoreConfig, setConfig, getConfig
@@ -58,10 +59,11 @@ class Qnotero(QMainWindow):
 			self.sysTray.show()			
 			self.minimizeOnClose = True		
 		else:
-			self.minimizeOnClose = False
-			
+			self.minimizeOnClose = False			
 		if getConfig("firstRun"):
-			self.preferences()		
+			self.preferences(firstRun=True)
+		if getConfig("autoUpdateCheck"):
+			self.updateCheck()
 		
 	def close(self):
 	
@@ -84,6 +86,7 @@ class Qnotero(QMainWindow):
 			e.ignore()
 		else:
 			e.accept()
+			self.listener.alive = False
 			exit()			
 			
 	def hideNoteHint(self):
@@ -160,14 +163,21 @@ class Qnotero(QMainWindow):
 		else:
 			self.moveToCenter()
 		self.show()
+		self.ui.lineEditQuery.selectAll()
 		self.ui.lineEditQuery.setFocus()			
 		
-	def preferences(self):
+	def preferences(self, firstRun=False):
 	
-		"""Show the preferences dialog"""
+		"""
+		Show the preferences dialog
+		
+		Keyword arguments:
+		firstRun -- indicates if the first run message should be shown
+					(default=False)		
+		"""
 		
 		from libqnotero.preferences import Preferences
-		Preferences(self).exec_()		
+		Preferences(self, firstRun=firstRun).exec_()		
 		
 	def previewNote(self, note):
 	
@@ -237,6 +247,9 @@ class Qnotero(QMainWindow):
 		self.ui.widgetNote.hide()
 		self.ui.listWidgetResults.show()
 		self.ui.listWidgetResults.clear()				
+		self.ui.listWidgetResults.setFocus()
+		self.ui.lineEditQuery.needUpdate = False
+		self.ui.lineEditQuery.timer.stop()
 		query = unicode(self.ui.lineEditQuery.text())
 		if len(query) < getConfig("minQueryLength"):
 			self.noResults()
@@ -277,8 +290,8 @@ class Qnotero(QMainWindow):
 		"""Setup the GUI"""
 						
 		self.ui.pushButtonSearch.setIcon(self.theme.icon("search"))
-		self.ui.pushButtonSearch.clicked.connect(self.search)
-		self.ui.lineEditQuery.returnPressed.connect(self.search)
+		self.ui.pushButtonSearch.clicked.connect(self.search)		
+		self.ui.lineEditQuery.qnotero = self
 		self.ui.listWidgetResults.qnotero = self
 		self.ui.listWidgetResults.setItemDelegate(QnoteroItemDelegate(self))		
 		self.ui.listWidgetResults.itemActivated.connect(self.runResult)				
@@ -301,4 +314,26 @@ class Qnotero(QMainWindow):
 		msg -- a message
 		"""
 			
-		self.ui.labelResultMsg.setText("<small><i>%s</i></small>" % msg)		
+		self.ui.labelResultMsg.setText("<small><i>%s</i></small>" % msg)	
+		
+	def updateCheck(self):
+		
+		"""Check for updates if update checking is on"""
+						
+		if not getConfig("autoUpdateCheck"):
+			return True
+		
+		import urllib	
+		print "qnotero.updateCheck(): opening %s" % getConfig("updateUrl")
+		try:
+			fd = urllib.urlopen("http://files.cogsci.nl/software/gnotero/MOST_RECENT_VERSION.TXT")
+			mrv = float(fd.read().strip())
+		except:
+			print "qnotero.updateCheck(): failed to check for update"
+			return		
+		print "qnotero.updateCheck(): most recent version is %.2f" % mrv		
+		if mrv > self.version:			
+			QMessageBox.information(self, "Update found", \
+				"A new version of Qnotero %s is available! Please visit http://www.cogsci.nl/ for more information." % mrv)
+			
+			

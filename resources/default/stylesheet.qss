@@ -59,3 +59,12 @@ QComboBox,
 #listWidgetResults {
 	selection-background-color: #555753;
 }
+
+#labelFirstRun {
+	border-radius: 4px;	
+	padding: 8px;
+	color: #eeeeec;
+	margin-bottom: 16px;
+	margin-top: 16px;
+	background: #888a85;
+}

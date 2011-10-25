@@ -16,14 +16,19 @@ along with qnotero.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 config = {
-	"cfgVer" : 0,
-	"zoteroPath" : "",
-	"theme" : "Default",
-	"pdfReader" : "xdg-open",
-	"minQueryLength" : 3,
 	"attachToSysTray" : True,
+	"autoFire" : 500,
+	"autoUpdateCheck" : True,
+	"cfgVer" : 0,
+	"firstRun" : True,	
+	"listenerPort" : 43250,
+	"minQueryLength" : 3,
 	"noteProvider" : "gnote",
-	"firstRun" : True,
+	"pdfReader" : "xdg-open",	
+	"theme" : "Default",
+	"updateUrl" : \
+		"http://files.cogsci.nl/software/gnotero/MOST_RECENT_VERSION.TXT",
+	"zoteroPath" : "",	
 	}
 
 def getConfig(setting):
