@@ -1,0 +1,39 @@
+QLabel,
+QCheckBox,
+QLineEdit,
+#Qnotero,
+#Preferences,
+#labelInfoMsg,
+#labelInfoMsgHeader,
+#labelResultMsg {
+	color: #555753;
+	background: #eeeeec;	
+}
+
+QLineEdit,
+QComboBox,
+QPushButton {
+	border-radius: 4px;
+	border: 2px solid #729fcf;		
+	margin: 4px;	
+}
+
+#listWidgetResults,
+#widgetSearch {
+	color: #555753;
+	background: #eeeeec;	
+	border-radius: 4px;
+	padding: 8px;
+	border: 2px solid #729fcf;	
+	selection-background-color: #729fcf;
+}
+
+#widgetSearch QPushButton,
+#widgetSearch QLineEdit {
+	border: none;
+}
+
+#lineEditQuery {
+	font-size: 14pt;
+	margin-left: 8px;		
+}

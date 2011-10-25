@@ -35,15 +35,16 @@ class Default:
 		"""
 	
 		self.qnotero = qnotero		
-		self.themeFolder = os.path.join(os.path.dirname(sys.argv[0]), \
+		self._themeFolder = os.path.join(os.path.dirname(sys.argv[0]), \
 			"resources", self.themeFolder())
-		if not os.path.exists(self.themeFolder):
-			self.themeFolder = os.path.join("/usr/share/qnotero/resources/", \
+		self._iconExt = self.iconExt()
+		if not os.path.exists(self._themeFolder):
+			self._themeFolder = os.path.join("/usr/share/qnotero/resources/", \
 				self.themeFolder())
-			if not os.path.exists(self.themeFolder):
+			if not os.path.exists(self._themeFolder):
 				raise QnoteroException("Failed to find resource folder!")
 		print "libqnotero._themes.default.__init__(): using '%s'" \
-			% self.themeFolder
+			% self._themeFolder
 		self.setStyleSheet()
 		self.qnotero.setWindowFlags(Qt.Popup)
 		self.qnotero.ui.listWidgetResults.setHorizontalScrollBarPolicy( \
@@ -63,7 +64,19 @@ class Default:
 		A QIcon		
 		"""
 	
-		return QIcon(os.path.join(self.themeFolder, iconName) + ".png")
+		return QIcon(os.path.join(self._themeFolder, iconName) \
+			+ self._iconExt)
+			
+	def iconExt(self):
+	
+		"""
+		Determines the file format of the icons
+		
+		Returns:
+		An extension (.png, .svg, etc.)
+		"""
+		
+		return ".png"
 		
 	def iconWidget(self, iconName):
 	
@@ -104,7 +117,8 @@ class Default:
 		A QPixmap
 		"""		
 		
-		return QPixmap(os.path.join(self.themeFolder, pixmapName) + ".png")
+		return QPixmap(os.path.join(self._themeFolder, pixmapName) \
+			+ self._iconExt)
 		
 	def roundness(self):
 	
@@ -122,7 +136,7 @@ class Default:
 		"""Applies a stylesheet to Qnotero"""
 	
 		self.qnotero.setStyleSheet(open(os.path.join( \
-			self.themeFolder, "stylesheet.qss")).read())
+			self._themeFolder, "stylesheet.qss")).read())
 			
 	def themeFolder(self):
 	

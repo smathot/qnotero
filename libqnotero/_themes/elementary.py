@@ -25,10 +25,15 @@ class Elementary(Default):
 	
 		Default.__init__(self, qnotero)	
 		
+	def iconExt(self):	
+		
+		return ".svg"		
+				
+	def roundness(self):
+	
+		return 2
+		
 	def themeFolder(self):
 		
 		return "elementary"	
 		
-	def roundness(self):
-	
-		return 0
