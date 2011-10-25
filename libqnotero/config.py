@@ -26,7 +26,8 @@ config = {
 	"theme" : "Default",
 	"updateUrl" : \
 		"http://files.cogsci.nl/software/gnotero/MOST_RECENT_VERSION.TXT",
-	"zoteroPath" : "",	
+	"zoteroPath" : "",
+	"autoFire" : 500
 	}
 
 def getConfig(setting):

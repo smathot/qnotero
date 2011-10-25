@@ -162,6 +162,7 @@ class Qnotero(QMainWindow):
 		else:
 			self.moveToCenter()
 		self.show()
+		self.ui.lineEditQuery.selectAll()
 		self.ui.lineEditQuery.setFocus()			
 		
 	def preferences(self, firstRun=False):
@@ -245,6 +246,9 @@ class Qnotero(QMainWindow):
 		self.ui.widgetNote.hide()
 		self.ui.listWidgetResults.show()
 		self.ui.listWidgetResults.clear()				
+		self.ui.listWidgetResults.setFocus()
+		self.ui.lineEditQuery.needUpdate = False
+		self.ui.lineEditQuery.timer.stop()
 		query = unicode(self.ui.lineEditQuery.text())
 		if len(query) < getConfig("minQueryLength"):
 			self.noResults()
@@ -285,8 +289,8 @@ class Qnotero(QMainWindow):
 		"""Setup the GUI"""
 						
 		self.ui.pushButtonSearch.setIcon(self.theme.icon("search"))
-		self.ui.pushButtonSearch.clicked.connect(self.search)
-		self.ui.lineEditQuery.returnPressed.connect(self.search)
+		self.ui.pushButtonSearch.clicked.connect(self.search)		
+		self.ui.lineEditQuery.qnotero = self
 		self.ui.listWidgetResults.qnotero = self
 		self.ui.listWidgetResults.setItemDelegate(QnoteroItemDelegate(self))		
 		self.ui.listWidgetResults.itemActivated.connect(self.runResult)				
