@@ -86,6 +86,7 @@ class Qnotero(QMainWindow):
 			e.ignore()
 		else:
 			e.accept()
+			self.listener.alive = False
 			exit()			
 			
 	def hideNoteHint(self):

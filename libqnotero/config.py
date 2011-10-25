@@ -17,17 +17,18 @@ along with qnotero.  If not, see <http://www.gnu.org/licenses/>.
 
 config = {
 	"attachToSysTray" : True,
+	"autoFire" : 500,
 	"autoUpdateCheck" : True,
 	"cfgVer" : 0,
 	"firstRun" : True,	
+	"listenerPort" : 43250,
 	"minQueryLength" : 3,
 	"noteProvider" : "gnote",
 	"pdfReader" : "xdg-open",	
 	"theme" : "Default",
 	"updateUrl" : \
 		"http://files.cogsci.nl/software/gnotero/MOST_RECENT_VERSION.TXT",
-	"zoteroPath" : "",
-	"autoFire" : 500
+	"zoteroPath" : "",	
 	}
 
 def getConfig(setting):
