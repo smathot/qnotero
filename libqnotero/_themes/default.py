@@ -18,6 +18,7 @@ along with qnotero.  If not, see <http://www.gnu.org/licenses/>.
 import sys
 import os
 import os.path
+from libqnotero.qnoteroException import QnoteroException
 from PyQt4.QtGui import QIcon, QPixmap, QLabel
 from PyQt4.QtCore import Qt
 
@@ -34,13 +35,15 @@ class Default:
 		"""
 	
 		self.qnotero = qnotero		
-		if os.path.exists(os.path.join("/usr/share/qnotero/resources/", \
-			self.themeFolder())):
+		self.themeFolder = os.path.join(os.path.dirname(sys.argv[0]), \
+			"resources", self.themeFolder())
+		if not os.path.exists(self.themeFolder):
 			self.themeFolder = os.path.join("/usr/share/qnotero/resources/", \
 				self.themeFolder())
-		else:
-			self.themeFolder = os.path.join(os.path.dirname(sys.argv[0]), \
-				"resources", self.themeFolder())							
+			if not os.path.exists(self.themeFolder):
+				raise QnoteroException("Failed to find resource folder!")
+		print "libqnotero._themes.default.__init__(): using '%s'" \
+			% self.themeFolder
 		self.setStyleSheet()
 		self.qnotero.setWindowFlags(Qt.Popup)
 		self.qnotero.ui.listWidgetResults.setHorizontalScrollBarPolicy( \

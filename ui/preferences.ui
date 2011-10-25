@@ -109,6 +109,9 @@ p, li { white-space: pre-wrap; }
      <property name="text">
       <string>This appears to be the first time that you run Qnotero! Getting started is easy, all you need to do is locate the Zotero folder. if you don't know where the Zotero folder is located, you can use the auto-detect function (but this may take a while).</string>
      </property>
+     <property name="textFormat">
+      <enum>Qt::PlainText</enum>
+     </property>
      <property name="wordWrap">
       <bool>true</bool>
      </property>

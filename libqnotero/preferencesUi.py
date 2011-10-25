@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui/preferences.ui'
 #
-# Created: Tue Oct 25 15:42:52 2011
+# Created: Tue Oct 25 15:49:47 2011
 #      by: PyQt4 UI code generator 4.8.5
 #
 # WARNING! All changes made in this file will be lost!
@@ -80,6 +80,7 @@ class Ui_Preferences(object):
         self.gridLayout.addWidget(self.checkBoxAutoUpdateCheck, 6, 0, 1, 4)
         self.labelFirstRun = QtGui.QLabel(Preferences)
         self.labelFirstRun.setText(QtGui.QApplication.translate("Preferences", "This appears to be the first time that you run Qnotero! Getting started is easy, all you need to do is locate the Zotero folder. if you don\'t know where the Zotero folder is located, you can use the auto-detect function (but this may take a while).", None, QtGui.QApplication.UnicodeUTF8))
+        self.labelFirstRun.setTextFormat(QtCore.Qt.PlainText)
         self.labelFirstRun.setWordWrap(True)
         self.labelFirstRun.setObjectName(_fromUtf8("labelFirstRun"))
         self.gridLayout.addWidget(self.labelFirstRun, 1, 0, 1, 4)

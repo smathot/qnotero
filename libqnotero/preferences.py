@@ -41,17 +41,15 @@ class Preferences(QDialog):
 		"""
 	
 		QDialog.__init__(self)
-		self.qnotero = qnotero
+		self.qnotero = qnotero		
 		self.ui = Ui_Preferences()		
 		self.ui.setupUi(self)
 		self.ui.labelLocatePath.hide()
 		if not firstRun:
-			self.ui.labelFirstRun.hide()				
-		self.adjustSize()
+			self.ui.labelFirstRun.hide()						
 		self.ui.labelTitleMsg.setText( \
 			self.ui.labelTitleMsg.text().replace("[version]", \
-			self.qnotero.version))
-		self.setStyleSheet(self.qnotero.styleSheet())		
+			self.qnotero.version))		
 		self.ui.pushButtonZoteroPathAutoDetect.clicked.connect( \
 			self.zoteroPathAutoDetect)
 		self.ui.pushButtonZoteroPathBrowse.clicked.connect( \
@@ -67,6 +65,8 @@ class Preferences(QDialog):
 			if theme == getConfig("theme").lower():
 				self.ui.comboBoxTheme.setCurrentIndex(i)
 			i += 1		
+		self.setStyleSheet(self.qnotero.styleSheet())
+		self.adjustSize()		
 				
 	def accept(self):
 	
