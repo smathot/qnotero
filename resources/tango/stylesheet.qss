@@ -1,0 +1,72 @@
+QLabel,
+QCheckBox,
+#Qnotero,
+#Preferences,
+#labelInfoMsg,
+#labelInfoMsgHeader,
+#labelResultMsg {
+	color: #eeeeec;
+	background: #3465a4;	
+}
+
+#Preferences QLineEdit,
+#Preferences QSpinBox,
+#Preferences QComboBox,
+#Preferences QCheckBox,
+QPushButton {
+	border-radius: 4px;	
+	padding: 4px;
+}
+
+#widgetSearch,
+QPushButton {
+	color: #eeeeec;
+	background: QLinearGradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #4e9a06, stop: 1 #8ae234);
+}
+
+QSpinBox,
+QLineEdit,
+QComboBox,
+#listWidgetResults {
+	background: #729fcf;
+	color: #eeeeec;		
+}
+
+#lineEditQuery {
+	background: transparent;
+	color: #eeeeec;
+}
+
+#widgetSearch,
+#listWidgetResults {	
+	border-radius: 8px;	
+}
+
+#lineEditQuery {
+	font-size: 14pt;
+	margin-left: 8px;		
+}
+
+#labelInfoMsgHeader {
+	font-weight: bold;
+}
+
+#labelLocatePath,
+#labelNoteAvailable {
+	font-style: italic;
+}
+
+QLineEdit,
+QComboBox,
+#listWidgetResults {
+	selection-background-color: #f57900;
+}
+
+#labelFirstRun {
+	border-radius: 4px;	
+	padding: 8px;
+	color: #eeeeec;
+	margin-bottom: 16px;
+	margin-top: 16px;
+	background: #888a85;
+}
