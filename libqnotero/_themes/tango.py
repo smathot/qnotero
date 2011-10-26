@@ -20,7 +20,7 @@ from libqnotero._themes.default import Default
 
 class Tango(Default):
 
-	"""The Elementary Qnotero theme"""	
+	"""The Tango Qnotero theme"""	
 	
 	def __init__(self, qnotero):
 	
