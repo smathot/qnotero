@@ -23,7 +23,7 @@ class Chameleon(Default):
 
 	"""A theme that blends in with the desktop"""	
 	
-	mapping = {"qnotero" : "accessoires-dictionary", \
+	mapping = {"qnotero" : "accessories-dictionary", \
 		"close" : "window-close", \
 		"pdf" : "application-pdf", \
 		"nopdf" : "text-plain", \
@@ -39,13 +39,7 @@ class Chameleon(Default):
 		qnotero -- a Qnotero instance
 		"""
 	
-		self.qnotero = qnotero		
-		self.qnotero.setWindowFlags(Qt.Popup)
-		self.qnotero.ui.listWidgetResults.setHorizontalScrollBarPolicy( \
-			Qt.ScrollBarAlwaysOff)
-		self.qnotero.ui.listWidgetResults.setVerticalScrollBarPolicy( \
-			Qt.ScrollBarAlwaysOff)
-		self.setThemeFolder()
+		Default.__init__(self, qnotero)
 		self.qnotero.ui.lineEditQuery.setFrame(True)		
 		
 	def icon(self, iconName):
@@ -84,3 +78,8 @@ class Chameleon(Default):
 		return icon.pixmap(32,32)
 		
 		
+	def setStyleSheet(self):
+	
+		"""Applies a stylesheet to Qnotero"""		
+		
+		pass

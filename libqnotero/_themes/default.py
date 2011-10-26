@@ -37,11 +37,11 @@ class Default:
 		self.qnotero = qnotero		
 		self.setThemeFolder()
 		self.setStyleSheet()		
-		self.qnotero.setWindowFlags(Qt.Popup)
+		self.setWindowProperties()
 		self.qnotero.ui.listWidgetResults.setHorizontalScrollBarPolicy( \
 			Qt.ScrollBarAlwaysOff)
 		self.qnotero.ui.listWidgetResults.setVerticalScrollBarPolicy( \
-			Qt.ScrollBarAlwaysOff)						
+			Qt.ScrollBarAlwaysOff)					
 		
 	def icon(self, iconName):
 	
@@ -143,6 +143,12 @@ class Default:
 				raise QnoteroException("Failed to find resource folder!")
 		print "libqnotero._themes.default.__init__(): using '%s'" \
 			% self._themeFolder
+			
+	def setWindowProperties(self):
+	
+		"""Set the window properties (frameless, etc.)"""
+		
+		self.qnotero.setWindowFlags(Qt.Popup)
 		
 	def themeFolder(self):
 	
