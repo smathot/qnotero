@@ -76,10 +76,17 @@ class Chameleon(Default):
 		
 		icon = self.icon(pixmapName)
 		return icon.pixmap(32,32)
-		
-		
+				
 	def setStyleSheet(self):
 	
 		"""Applies a stylesheet to Qnotero"""		
 		
 		pass
+		
+	def setScrollBars(self):
+	
+		"""Set the scrollbar properties"""
+		
+		self.qnotero.ui.listWidgetResults.setHorizontalScrollBarPolicy( \
+			Qt.ScrollBarAlwaysOff)
+		

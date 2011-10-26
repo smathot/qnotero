@@ -38,10 +38,7 @@ class Default:
 		self.setThemeFolder()
 		self.setStyleSheet()		
 		self.setWindowProperties()
-		self.qnotero.ui.listWidgetResults.setHorizontalScrollBarPolicy( \
-			Qt.ScrollBarAlwaysOff)
-		self.qnotero.ui.listWidgetResults.setVerticalScrollBarPolicy( \
-			Qt.ScrollBarAlwaysOff)					
+		self.setScrollBars()
 		
 	def icon(self, iconName):
 	
@@ -121,6 +118,15 @@ class Default:
 		"""
 		
 		return 10
+		
+	def setScrollBars(self):
+	
+		"""Set the scrollbar properties"""
+		
+		self.qnotero.ui.listWidgetResults.setHorizontalScrollBarPolicy( \
+			Qt.ScrollBarAlwaysOff)
+		self.qnotero.ui.listWidgetResults.setVerticalScrollBarPolicy( \
+			Qt.ScrollBarAlwaysOff)					
 		
 	def setStyleSheet(self):
 	
