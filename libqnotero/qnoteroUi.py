@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui/qnotero.ui'
 #
-# Created: Tue Oct 25 16:50:08 2011
+# Created: Wed Oct 26 14:24:53 2011
 #      by: PyQt4 UI code generator 4.8.5
 #
 # WARNING! All changes made in this file will be lost!

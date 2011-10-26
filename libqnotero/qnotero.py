@@ -99,35 +99,7 @@ class Qnotero(QMainWindow):
 	
 		"""Open the active note"""
 	
-		self.activeNote.open()
-			
-	def moveSafe(self, topLeft):
-	
-		"""
-		Move the window while respecting the screen boundaries
-		
-		Arguments:
-		topLeft -- a QPoint for the top left
-		"""
-		
-		rect = QDesktopWidget().availableGeometry()
-		if not rect.contains(topLeft):
-			pos = rect.topRight()
-			self.move(pos.x()-self.size().width(), pos.y())
-		else:		
-			self.move(topLeft)
-			
-	def moveToCenter(self):
-	
-		"""Move the window the display center"""
-		
-		pos = QDesktopWidget().availableGeometry().center()
-		x = pos.x()
-		y = pos.y()
-		s = self.size()
-		h = s.height()
-		w = s.width()
-		self.move(x-w/2, y-h/2)
+		self.activeNote.open()			
 			
 	def noResults(self, query=None):
 	
@@ -158,11 +130,21 @@ class Qnotero(QMainWindow):
 		topLeft -- a QPoint for the top left (default=None)		
 		"""
 	
-		if topLeft != None:
-			self.moveSafe(topLeft)
-		else:
-			self.moveToCenter()
+		# Reposition the window
+		r = QDesktopWidget().availableGeometry()
+		s = self.size()		
+		x = max(r.left(), min(r.right()-s.width(), \
+			getConfig("xPos") * (r.right()-r.left()) - s.width()/2))
+		y = max(r.top(), min(r.bottom()-s.height(), \
+			getConfig("yPos") * (r.bottom()-r.top()) - s.height()/2))						
+		self.move(x, y)
+		
+		# Show it
 		self.show()
+		self.raise_()
+		self.activateWindow()
+		
+		# Focus the search box
 		self.ui.lineEditQuery.selectAll()
 		self.ui.lineEditQuery.setFocus()			
 		

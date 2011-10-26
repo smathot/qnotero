@@ -16,7 +16,6 @@ along with qnotero.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 config = {
-	"attachToSysTray" : True,
 	"autoFire" : 500,
 	"autoUpdateCheck" : True,
 	"cfgVer" : 0,
@@ -28,6 +27,8 @@ config = {
 	"theme" : "Default",
 	"updateUrl" : \
 		"http://files.cogsci.nl/software/gnotero/MOST_RECENT_VERSION.TXT",
+	"xPos" : 0.5,		
+	"yPos" : 0.5,
 	"zoteroPath" : "",	
 	}
 
@@ -71,9 +72,11 @@ def restoreConfig(settings):
 			try:
 				value = str(settings.value(setting, default).toString())
 			except:
-				value = default
+				value = default				
 		elif type(default) == int:
 			value = settings.value(setting, default).toInt()[0]	
+		elif type(default) == float:
+			value = settings.value(setting, default).toFloat()[0]	
 		setConfig(setting, value)
 	
 def saveConfig(settings):

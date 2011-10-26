@@ -53,10 +53,11 @@ class Preferences(QDialog):
 		self.ui.pushButtonZoteroPathAutoDetect.clicked.connect( \
 			self.zoteroPathAutoDetect)
 		self.ui.pushButtonZoteroPathBrowse.clicked.connect( \
-			self.zoteroPathBrowse)					
-		self.ui.checkBoxAttachToSysTray.setChecked(getConfig("attachToSysTray"))
+			self.zoteroPathBrowse)							
 		self.ui.checkBoxAutoUpdateCheck.setChecked(getConfig("autoUpdateCheck"))
 		self.ui.lineEditZoteroPath.setText(getConfig("zoteroPath"))
+		self.ui.spinBoxXPos.setValue(100. * getConfig("xPos"))
+		self.ui.spinBoxYPos.setValue(100. * getConfig("yPos"))
 		i = 0
 		import libqnotero._themes
 		themePath = os.path.dirname(libqnotero._themes.__file__)
@@ -75,8 +76,8 @@ class Preferences(QDialog):
 		if self.ui.labelLocatePath.isVisible():
 			return
 		setConfig("firstRun", False)
-		setConfig("attachToSysTray", \
-			self.ui.checkBoxAttachToSysTray.isChecked())
+		setConfig("xPos", .01 * self.ui.spinBoxXPos.value())
+		setConfig("yPos", .01 * self.ui.spinBoxYPos.value())		
 		setConfig("autoUpdateCheck", \
 			self.ui.checkBoxAutoUpdateCheck.isChecked())		
 		setConfig("zoteroPath", unicode(self.ui.lineEditZoteroPath.text()))

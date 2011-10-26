@@ -61,8 +61,5 @@ class SysTray(QSystemTrayIcon):
 		if self.qnotero.isVisible():
 			self.qnotero.popDown()
 		else:
-			if getConfig("attachToSysTray"):
-				self.qnotero.popUp(self.geometry().bottomLeft())
-			else:
-				self.qnotero.popUp()
+			self.qnotero.popUp()
 			
