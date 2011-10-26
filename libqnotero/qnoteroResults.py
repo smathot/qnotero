@@ -64,3 +64,18 @@ class QnoteroResults(QListWidget):
 		drag = QDrag(self)
 		drag.setMimeData(mimeData)
 		drag.exec_()
+
+	def keyPressEvent(self, e):
+	
+		"""
+		Handle key presses
+		
+		Arguments:
+		e -- a QKeyEvent
+		"""
+	
+		if e.key() == Qt.Key_Up and self.currentRow() == 0:
+			self.qnotero.ui.lineEditQuery.selectAll()
+			self.qnotero.ui.lineEditQuery.setFocus()
+			return
+		QListWidget.keyPressEvent(self, e)

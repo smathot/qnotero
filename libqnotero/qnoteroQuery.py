@@ -47,11 +47,16 @@ class QnoteroQuery(QLineEdit):
 		e -- a QKeyEvent
 		"""
 	
-		if e.key() in [Qt.Key_Down, Qt.Key_Return]:
-			if self.needUpdate:	
-				self.qnotero.search()				
-			else:
+		if e.key() == Qt.Key_Return:
+			self.qnotero.search(setFocus=False)
+			return
+		if e.key() == Qt.Key_Down:
+			if self.needUpdate:
+				self.qnotero.search(setFocus=True)								
+			elif self.qnotero.ui.listWidgetResults.count() > 0:
 				self.qnotero.ui.listWidgetResults.setFocus()
+			self.qnotero.ui.listWidgetResults.setCurrentItem( \
+				self.qnotero.ui.listWidgetResults.item(0))
 			return
 		
 		QLineEdit.keyPressEvent(self, e)		
@@ -64,10 +69,9 @@ class QnoteroQuery(QLineEdit):
 
 	def search(self):
 	
-		"""Perform a search and re-focus"""
+		"""Perform a search without losing focus"""
 				
-		self.qnotero.search()
-		self.setFocus()		
+		self.qnotero.search(setFocus=False)		
 		
 	def _textChanged(self):
 	

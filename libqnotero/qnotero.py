@@ -121,16 +121,11 @@ class Qnotero(QMainWindow):
 	
 		self.hide()		
 	
-	def popUp(self, topLeft=None):
+	def popUp(self):
 	
-		"""
-		Popup from the tray
-		
-		Keyword arguments:
-		topLeft -- a QPoint for the top left (default=None)		
-		"""
+		"""Popup from the tray"""
 	
-		# Reposition the window
+		# Reposition the window		
 		r = QDesktopWidget().availableGeometry()
 		s = self.size()		
 		x = max(r.left(), min(r.right()-s.width(), \
@@ -221,15 +216,20 @@ class Qnotero(QMainWindow):
 		saveConfig(settings)
 		settings.endGroup()	
 		
-	def search(self):
+	def search(self, setFocus=False):
 	
-		"""Execute a search"""
+		"""
+		Execute a search
+		
+		Keyword arguments:
+		setFocus -- indicates whether the listWidgetResults needs to receive
+					focus (default=False)
+		"""
 		
 		self.ui.labelNoteAvailable.hide()
 		self.ui.widgetNote.hide()
 		self.ui.listWidgetResults.show()
-		self.ui.listWidgetResults.clear()				
-		self.ui.listWidgetResults.setFocus()
+		self.ui.listWidgetResults.clear()		
 		self.ui.lineEditQuery.needUpdate = False
 		self.ui.lineEditQuery.timer.stop()
 		query = unicode(self.ui.lineEditQuery.text())
@@ -245,6 +245,8 @@ class Qnotero(QMainWindow):
 			qnoteroItem = QnoteroItem(self, zoteroItem, \
 				self.ui.listWidgetResults)
 			self.ui.listWidgetResults.addItem(qnoteroItem)		
+		if setFocus:
+			self.ui.listWidgetResults.setFocus()			
 			
 	def setSize(self, size):
 	
