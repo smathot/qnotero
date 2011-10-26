@@ -48,5 +48,8 @@ setup(name="qnotero",
 			glob.glob("resources/default/*")), \
 		("/usr/share/qnotero/resources/elementary", \
 			glob.glob("resources/elementary/*")), \
+		("/usr/share/qnotero/resources/tango", \
+			glob.glob("resources/tango/*")), \
+			
 		]
 	)
