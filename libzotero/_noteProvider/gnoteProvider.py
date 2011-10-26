@@ -17,9 +17,12 @@ along with Gnotero.  If not, see <http://www.gnu.org/licenses/>.
 
 import os
 import os.path
-import Levenshtein
 import re
 import subprocess
+try:
+	import Levenshtein
+except:
+	print "libzotero._noteProvider.gnoteProvider: failed to import Levenshtein"
 
 class GnoteProvider:
 	
