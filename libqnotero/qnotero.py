@@ -32,7 +32,7 @@ class Qnotero(QMainWindow):
 
 	"""The main class of the Qnotero GUI"""
 	
-	version = "0.45-pre1"
+	version = "0.45"
 
 	def __init__(self, systray=True, debug=False, reset=False, parent=None):
 
@@ -312,7 +312,7 @@ class Qnotero(QMainWindow):
 		import urllib	
 		print "qnotero.updateCheck(): opening %s" % getConfig("updateUrl")
 		try:
-			fd = urllib.urlopen("http://files.cogsci.nl/software/gnotero/MOST_RECENT_VERSION.TXT")
+			fd = urllib.urlopen(getConfig("updateUrl"))
 			mrv = float(fd.read().strip())
 		except:
 			print "qnotero.updateCheck(): failed to check for update"
