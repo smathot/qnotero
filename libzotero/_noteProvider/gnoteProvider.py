@@ -33,6 +33,10 @@ class GnoteProvider:
 	
 	def __init__(self):
 	
+		if os.name != "posix":
+			self.path = None
+			return
+	
 		home_folder = os.environ["HOME"]
 		
 		# Determine the location of the gnote notes
