@@ -32,7 +32,7 @@ class Qnotero(QMainWindow):
 
 	"""The main class of the Qnotero GUI"""
 	
-	version = "0.46-pre1"
+	version = "0.46"
 
 	def __init__(self, systray=True, debug=False, reset=False, parent=None):
 
