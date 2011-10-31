@@ -1,7 +1,8 @@
-qnotero (0.45-pre1) unstable; urgency=low
+qnotero (0.45) unstable; urgency=low
 
   [ Sebastiaan Mathot ]
   * Initial release (Closes: #611640). 
   * 
+  * 
 
- -- Sebastiaan Mathot <sebastiaan@dragonfly>  Wed, 26 Oct 2011 15:06:38 +0200
+ -- Sebastiaan Mathot <sebastiaan@snoop>  Fri, 28 Oct 2011 16:19:37 +0200
