@@ -99,7 +99,10 @@ class GnoteProvider:
 					# search terms
 					pango = strip_p.sub("", pango)[:1024].strip()											
 					for s in (item.authors[0], item.date):
-						pango = pango.replace("%s" % s, "<b>%s</b>" % s)
+						try:
+							pango = pango.replace("%s" % s, "<b>%s</b>" % s)
+						except:
+							pass
 							
 					# Add this result to the list
 					matches.append(GnoteNote(pango, "gnote --open-note=%s" % note_path))
