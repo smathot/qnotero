@@ -58,12 +58,13 @@ class QnoteroResults(QListWidget):
 		zoteroItem = qnoteroItem.zoteroItem
 		if zoteroItem.fulltext == None:
 			return			
+								
 		mimeData = QMimeData()
 		mimeData.setUrls([QUrl.fromLocalFile(zoteroItem.fulltext)])
 		mimeData.setData("text/plain", zoteroItem.fulltext)
 		drag = QDrag(self)
 		drag.setMimeData(mimeData)
-		drag.exec_()
+		drag.exec_(Qt.CopyAction)
 
 	def keyPressEvent(self, e):
 	
