@@ -16,7 +16,8 @@ along with qnotero.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 from PyQt4.QtGui import QListWidget, QDrag
-from PyQt4.QtCore import Qt, QUrl, QMimeData
+from PyQt4.QtCore import Qt, QUrl, QMimeData, QString
+import urllib
 
 class QnoteroResults(QListWidget):
 
@@ -58,10 +59,12 @@ class QnoteroResults(QListWidget):
 		zoteroItem = qnoteroItem.zoteroItem
 		if zoteroItem.fulltext == None:
 			return			
-								
+			
+		path = zoteroItem.fulltext.encode("latin-1")			
+		print "qnoteroResults.mousePressEvent(): prepare to copy %s" % path
 		mimeData = QMimeData()
-		mimeData.setUrls([QUrl.fromLocalFile(zoteroItem.fulltext)])
-		mimeData.setData("text/plain", zoteroItem.fulltext)
+		mimeData.setUrls([QUrl.fromLocalFile(path)])
+		mimeData.setData("text/plain", path)
 		drag = QDrag(self)
 		drag.setMimeData(mimeData)
 		drag.exec_(Qt.CopyAction)
