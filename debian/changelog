@@ -1,7 +1,6 @@
-qnotero (0.47) unstable; urgency=low
+qnotero (0.47-ubuntu1) oneiric; urgency=low
 
   [ Sebastiaan Mathot ]
-  * Initial release (Closes: #611640). 
-  * 
+  * Initial release.
 
- -- Sebastiaan Mathot <sebastiaan@snoop>  Mon, 07 Nov 2011 19:09:11 +0100
+ -- Sebastiaan Mathot <s.mathot@cogsci.nl>  Mon, 07 Nov 2011 21:54:47 +0100
