@@ -30,36 +30,36 @@ class zoteroItem:
 	"""
 
 	def __init__(self, init=None, noteProvider=None):
-	
+
 		"""
 		Initialization can be done using a dictionary or
 		and int (which is interpreted as the item id)
-		"""	
-	
-		self.gnotero_format_str = None		
+		"""
+
+		self.gnotero_format_str = None
 		self.simple_format_str = None
-		self.filename_format_str = None	
+		self.filename_format_str = None
 		self.collection_color = "#000000"
 		self.noteProvider = noteProvider
 		self.note = -1
-		
+
 		if type(init) == dict:
-		
+
 			if "item_id" in item:
 				self.id = item["item_id"]
 			else:
 				self.id = None
-				
+
 			if "publicationTitle" in item:
 				self.publication = item["publicationTitle"]
 			else:
 				self.publication = None
-			
+
 			if "title" in item:
 				self.title = item["title"]
 			else:
 				self.title = None
-			
+
 			if "author" in item:
 				self.authors = item["author"]
 			else:
@@ -69,32 +69,32 @@ class zoteroItem:
 				self.date = item["date"]
 			else:
 				self.date = None
-			
+
 			if "issue" in item:
 				self.issue = item["issue"]
 			else:
 				self.issue = None
-			
+
 			if "volume" in item:
 				self.volume = item["volume"]
 			else:
 				self.volume = None
-			
+
 			if "fulltext" in item:
 				self.fulltext = item["fulltext"]
 			else:
 				self.fulltext = None
-			
+
 			if "collections" in item:
 				self.collections = item["collections"]
 			else:
 				self.collections = []
-				
+
 			if "key" in item:
 				self.key = item["key"]
 			else:
 				self.key = None
-			
+
 		else:
 			self.title = None
 			self.collections = []
@@ -105,33 +105,33 @@ class zoteroItem:
 			self.fulltext = None
 			self.date = None
 			self.key = None
-		
+
 			if type(init) == int:
 				self.id = init
 			else:
-				self.id = None				
-				
+				self.id = None
+
 	def match(self, terms):
-	
+
 		"""
 		Returns true if this item matches the specified
 		search terms (e.g., author: "Doe"), else returns
 		false
 		"""
-		
+
 		global term_collection, term_author, term_title, term_date, term_publication
-	
+
 		# Author is a required field. Without it we don't search
 		if len(self.authors) > 0:
-		
+
 			# Do all criteria match?
 			match_all = True
 
-			# Walk through all search terms				
+			# Walk through all search terms
 			for term_type, term in terms:
-				
+
 				match = False
-	
+
 				if term_type in term_collection:
 					for collection in self.collections:
 						if term in collection.lower():
@@ -141,95 +141,95 @@ class zoteroItem:
 					for author in self.authors:
 						if term in author.lower():
 							match = True
-							
+
 				if not match and self.date != None and term_type in term_date:
 					if term in self.date:
 						match = True
-						
+
 				if not match and self.title != None and term_type in term_title and term in self.title.lower():
 					match = True
-					
+
 				if not match and self.publication != None and term_type in term_publication and term in self.publication.lower():
-					match = True					
-		
+					match = True
+
 				if not match:
 					match_all = False
 					break
-					
+
 			return match_all
-					
+
 		return False
-		
+
 	def get_note(self):
-	
+
 		"""Retrieve a note"""
-		
+
 		if self.note != -1:
 			return self.note
-			
+
 		self.note = self.noteProvider.search(self)
 		return self.note
-	
+
 	def format_author(self):
-		
+
 		"""
 		Give a nice representation of the author
 		"""
-		
+
 		if self.authors == []:
 			return "Unkown author"
-		
-		if len(self.authors) > 5:			
+
+		if len(self.authors) > 5:
 			return "%s et al." % self.authors[0]
-		
+
 		if len(self.authors) > 2:
 			return ", ".join(self.authors[:-1]) + ", & " + self.authors[-1]
-	
+
 		if len(self.authors) == 2:
 			return self.authors[0] + " & " + self.authors[1]
-		
+
 		return self.authors[0]
-	
+
 	def format_date(self):
-		
+
 		"""
 		Give a nice representation of the date
 		"""
-		
+
 		if self.date == None:
 			return "(Date unknown)"
-		
+
 		return "(" + self.date + ")"
-	
+
 	def format_title(self):
-		
+
 		"""
 		Give a nice representation of the date
 		"""
-		
+
 		if self.title == None:
 			return "Unknown title"
-		
+
 		return self.title
-	
+
 	def format_publication(self):
-		
+
 		"""
 		Give a nice representation of the date
 		"""
-		
+
 		if self.publication == None:
 			return "Unknown journal"
-		
+
 		return self.publication
-	
+
 	def gnotero_format(self):
-		
+
 		"""
 		Gives a nice apa-like representation of the item, which can
 		be used a label in gnotero
 		"""
-		
+
 		if self.gnotero_format_str == None:
 			s =  "<b>" + self.format_author() + " " + self.format_date() + "</b>"
 			if self.title != None:
@@ -242,13 +242,13 @@ class zoteroItem:
 				if self.issue != None:
 					s += "(%s)" % self.issue
 			s += "</small>"
-			
+
 			self.gnotero_format_str = s.replace("&", "&amp;") #.encode("latin-1", "ignore")
-			
+
 		return self.gnotero_format_str
-		
+
 	def full_format(self):
-	
+
 		if self.gnotero_format_str == None:
 			s =  self.format_author() + " " + self.format_date()
 			if self.title != None:
@@ -259,26 +259,26 @@ class zoteroItem:
 					s += ", %s" % self.volume
 				if self.issue != None:
 					s += "(%s)" % self.issue
-			
+
 			self.gnotero_format_str = s
-			
-		return self.gnotero_format_str		
-		
+
+		return self.gnotero_format_str
+
 	def simple_format(self):
-	
+
 		if self.simple_format_str == None:
 			self.simple_format_str = self.format_author() + " " + self.format_date()
 		return self.simple_format_str
-		
+
 	def filename_format(self):
-	
+
 		if self.filename_format_str == None:
 			self.filename_format_str = self.format_author() + " " + self.format_date().encode("ascii", "ignore").replace("\\", "")
 		return self.filename_format_str
-		
+
 	def hashKey(self):
-		
+
 		global cache
 		hashKey = unicode(self)
 		cache[hashKey] = self
-		return hashKey	
+		return hashKey
