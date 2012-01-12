@@ -25,7 +25,10 @@ if __name__ == "__main__":
 	import sys
 	from libqnotero.listener import Listener
 	try:
-		listener = Listener()
+		if "--notray" not in sys.argv:
+			listener = Listener()
+		else:
+			listener = None
 	except:
 		from libqnotero.config import getConfig
 		import socket
@@ -38,14 +41,15 @@ if __name__ == "__main__":
 	from libqnotero.qnotero import Qnotero
 	from PyQt4.QtGui import QApplication
 	reset = "--reset" in sys.argv
-	systray = not "--notray" in sys.argv
+	systray = "--notray" not in sys.argv
 	app = QApplication(sys.argv)
 	app.setQuitOnLastWindowClosed(False)
 	qnotero = Qnotero(systray=systray, debug=True, reset=reset)
 	qnotero.listener = listener
 	if not systray:
 		qnotero.popUp()
-	listener.qnotero = qnotero
-	listener.start()
+	if listener != None:
+		listener.qnotero = qnotero
+		listener.start()
 	sys.exit(app.exec_())
 
