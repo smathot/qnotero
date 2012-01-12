@@ -288,7 +288,8 @@ class LibZotero:
 			if item.match(terms):
 				results.append(item)
 		self.search_cache[query] = results
-		print "libzotero.search(): search for '%s' completed in %.3fs" % (query, time.time() - t)
+		print "libzotero.search(): search for '%s' completed in %.3fs" % \
+			(query.encode('ascii', errors='ignore'), time.time() - t)
 
 		return results
 
