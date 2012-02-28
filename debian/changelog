@@ -1,3 +1,8 @@
+qnotero (0.48-pre1-ubuntu1) oneiric; urgency=low
+
+  [ Sebastiaan Mathot ]
+  * Initial release.
+
 qnotero (0.47-ubuntu1) oneiric; urgency=low
 
   [ Sebastiaan Mathot ]
