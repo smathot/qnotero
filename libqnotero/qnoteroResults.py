@@ -49,7 +49,10 @@ class QnoteroResults(QListWidget):
 		"""
 
 		if e.button() == Qt.RightButton:
-			note = self.itemAt(e.pos()).zoteroItem.get_note()
+			item = self.itemAt(e.pos())
+			if item == None:
+				return
+			note = item.zoteroItem.get_note()
 			if note != None:
 				self.qnotero.previewNote(note)
 			return
