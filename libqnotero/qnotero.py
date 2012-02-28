@@ -20,7 +20,7 @@ import os
 import subprocess
 from PyQt4.QtGui import QMainWindow, QListWidgetItem, QLabel, QDesktopWidget, \
 	QMessageBox
-from PyQt4.QtCore import QSettings, QSize
+from PyQt4.QtCore import QSettings, QSize, QCoreApplication
 from libqnotero.sysTray import SysTray
 from libqnotero.config import saveConfig, restoreConfig, setConfig, getConfig
 from libqnotero.qnoteroUi import Ui_Qnotero
@@ -64,7 +64,7 @@ class Qnotero(QMainWindow):
 			self.preferences(firstRun=True)
 		if getConfig("autoUpdateCheck"):
 			self.updateCheck()
-
+			
 	def close(self):
 
 		"""Exit the program"""
@@ -88,12 +88,18 @@ class Qnotero(QMainWindow):
 			e.accept()
 			self.listener.alive = False
 			sys.exit()
-
+			
 	def hideNoteHint(self):
 
 		"""Hide the note available message"""
 
 		self.ui.labelNoteAvailable.hide()
+		
+	def leaveEvent(self, e):
+	
+		"""Hide the Window when the mouse is lost"""
+	
+		self.popDown()		
 
 	def openNote(self):
 
@@ -135,13 +141,14 @@ class Qnotero(QMainWindow):
 		self.move(x, y)
 
 		# Show it
-		self.show()
+		self.show()		
+		QCoreApplication.processEvents()
 		self.raise_()
 		self.activateWindow()
 
 		# Focus the search box
 		self.ui.lineEditQuery.selectAll()
-		self.ui.lineEditQuery.setFocus()
+		self.ui.lineEditQuery.setFocus()	
 
 	def preferences(self, firstRun=False):
 
