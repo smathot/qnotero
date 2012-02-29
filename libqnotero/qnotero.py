@@ -134,10 +134,22 @@ class Qnotero(QMainWindow):
 		# Reposition the window
 		r = QDesktopWidget().availableGeometry()
 		s = self.size()
-		x = max(r.left(), min(r.right()-s.width(), \
-			getConfig("xPos") * (r.right()-r.left()) - s.width()/2))
-		y = max(r.top(), min(r.bottom()-s.height(), \
-			getConfig("yPos") * (r.bottom()-r.top()) - s.height()/2))
+		pos = getConfig("pos")
+		if pos == "Top right":
+			x = r.left() + r.width()-s.width()
+			y = r.top()
+		elif pos == "Top left":
+			x = r.left()
+			y = r.top()
+		elif pos == "Bottom right":
+			x = r.left() + r.width()-s.width()
+			y = r.top() + r.height()-s.height()
+		elif pos == "Bottom left":
+			x = r.left()
+			y = r.top() + r.height()-s.height()
+		else:
+			x = r.left() + r.width()/2 - s.width()/2
+			y = r.top() + r.height()/2 - s.height()/2		
 		self.move(x, y)
 
 		# Show it

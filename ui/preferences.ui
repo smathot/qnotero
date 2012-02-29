@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>460</width>
-    <height>296</height>
+    <width>473</width>
+    <height>312</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -24,7 +24,7 @@
    <item row="2" column="1">
     <widget class="QLineEdit" name="lineEditZoteroPath"/>
    </item>
-   <item row="8" column="0" colspan="4">
+   <item row="7" column="0" colspan="4">
     <widget class="QDialogButtonBox" name="buttonBox">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
@@ -90,7 +90,7 @@ p, li { white-space: pre-wrap; }
      </property>
     </widget>
    </item>
-   <item row="7" column="0" colspan="4">
+   <item row="6" column="0" colspan="4">
     <widget class="QCheckBox" name="checkBoxAutoUpdateCheck">
      <property name="text">
       <string>Automatically check for updates on start-up</string>
@@ -113,67 +113,37 @@ p, li { white-space: pre-wrap; }
    <item row="5" column="0">
     <widget class="QLabel" name="label_3">
      <property name="text">
-      <string>Horizontal position</string>
+      <string>Position</string>
      </property>
     </widget>
    </item>
-   <item row="5" column="1" colspan="2">
-    <widget class="QSlider" name="horizontalSliderXPos">
-     <property name="maximum">
-      <number>100</number>
-     </property>
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="tickPosition">
-      <enum>QSlider::TicksBelow</enum>
-     </property>
-     <property name="tickInterval">
-      <number>10</number>
-     </property>
-    </widget>
-   </item>
-   <item row="6" column="0">
-    <widget class="QLabel" name="label_4">
-     <property name="text">
-      <string>Vertical position</string>
-     </property>
-    </widget>
-   </item>
-   <item row="6" column="1" colspan="2">
-    <widget class="QSlider" name="horizontalSliderYPos">
-     <property name="maximum">
-      <number>100</number>
-     </property>
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="tickPosition">
-      <enum>QSlider::TicksBelow</enum>
-     </property>
-     <property name="tickInterval">
-      <number>10</number>
-     </property>
-    </widget>
-   </item>
-   <item row="5" column="3">
-    <widget class="QSpinBox" name="spinBoxXPos">
-     <property name="suffix">
-      <string>%</string>
-     </property>
-     <property name="maximum">
-      <number>100</number>
-     </property>
-    </widget>
-   </item>
-   <item row="6" column="3">
-    <widget class="QSpinBox" name="spinBoxYPos">
-     <property name="suffix">
-      <string>%</string>
-     </property>
-     <property name="maximum">
-      <number>100</number>
-     </property>
+   <item row="5" column="1" colspan="3">
+    <widget class="QComboBox" name="comboBoxPos">
+     <item>
+      <property name="text">
+       <string>Top right</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Top left</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Bottom right</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Bottom left</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Center</string>
+      </property>
+     </item>
     </widget>
    </item>
   </layout>
@@ -209,70 +179,6 @@ p, li { white-space: pre-wrap; }
     <hint type="destinationlabel">
      <x>286</x>
      <y>274</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>spinBoxXPos</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>horizontalSliderXPos</receiver>
-   <slot>setValue(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>408</x>
-     <y>190</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>243</x>
-     <y>190</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>spinBoxYPos</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>horizontalSliderYPos</receiver>
-   <slot>setValue(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>408</x>
-     <y>217</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>243</x>
-     <y>217</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>horizontalSliderXPos</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>spinBoxXPos</receiver>
-   <slot>setValue(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>243</x>
-     <y>190</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>408</x>
-     <y>190</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>horizontalSliderYPos</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>spinBoxYPos</receiver>
-   <slot>setValue(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>243</x>
-     <y>217</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>408</x>
-     <y>217</y>
     </hint>
    </hints>
   </connection>

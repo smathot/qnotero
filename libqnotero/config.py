@@ -27,8 +27,7 @@ config = {
 	"theme" : "Default",
 	"updateUrl" : \
 		"http://files.cogsci.nl/software/qnotero/MOST_RECENT_VERSION.TXT",
-	"xPos" : 0.5,		
-	"yPos" : 0.5,
+	"pos" : "Top right",
 	"zoteroPath" : "",	
 	}
 
