@@ -1,7 +1,9 @@
-qnotero (0.48-pre1-ubuntu1) oneiric; urgency=low
+qnotero (0.48-ubuntu1) oneiric; urgency=low
 
   [ Sebastiaan Mathot ]
-  * Initial release.
+  * Various bug-fixes 
+
+ -- Sebastiaan Mathot <sebastiaan@fennec>  Thu, 01 Mar 2012 16:40:00 +0100
 
 qnotero (0.47-ubuntu1) oneiric; urgency=low
 
