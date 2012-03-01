@@ -66,12 +66,15 @@ class QnoteroResults(QListWidget):
 		zoteroItem = qnoteroItem.zoteroItem
 		if zoteroItem.fulltext == None:
 			return
-
+		
 		path = zoteroItem.fulltext.encode("latin-1")
-		tmpfile = os.path.join(tempfile.gettempdir(), \
-			os.path.basename(path).encode("ascii", "ignore"))
-
-		shutil.copy(path, tmpfile)
+		tmpfile = os.path.join(tempfile.gettempdir(), os.path.basename(path))
+		try:
+			shutil.copy(path, tmpfile)
+		except:
+			print "qnoteroResults.mousePressEvent(): failed to copy file, sorry..."
+			return
+			
 		print "qnoteroResults.mousePressEvent(): prepare to copy %s" % path
 		print "qnoteroResults.mousePressEvent(): prepare to copy (tmp) %s" \
 			% tmpfile
