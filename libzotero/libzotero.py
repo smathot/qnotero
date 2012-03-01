@@ -289,7 +289,7 @@ class LibZotero:
 				results.append(item)
 		self.search_cache[query] = results
 		print "libzotero.search(): search for '%s' completed in %.3fs" % \
-			(query.encode('ascii', errors='ignore'), time.time() - t)
+			(query.encode('ascii', 'ignore'), time.time() - t)
 
 		return results
 
