@@ -15,6 +15,7 @@ XB-Python-Version: ${python:Versions}
 Depends: ${misc:Depends}, ${python:Depends}, python-qt4 (>= 4.6.0),
   python-levenshtein
 Recommends: 
+Suggests: xul-ext-zotero
 Description: Qnotero is a sidekick to Zotero, the open-source reference manager.
   Zotero is an excellent tool for managing your reference, but it lacks a simple
   and direct way to search your references and open attached PDFs at the click
