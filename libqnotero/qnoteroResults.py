@@ -68,19 +68,25 @@ class QnoteroResults(QListWidget):
 			return
 		
 		path = zoteroItem.fulltext.encode("latin-1")
-		tmpfile = os.path.join(tempfile.gettempdir(), os.path.basename(path))
+		tmpName = '%s.pdf' % zoteroItem.filename_format()
+		tmpFile = os.path.join(tempfile.gettempdir(), tmpName)
+		suffix = 1
+		while os.path.exists(tmpFile):
+			tmpName = '%s-%d.pdf' % (zoteroItem.filename_format(), suffix)
+			tmpFile = os.path.join(tempfile.gettempdir(), tmpName)			
+			suffix += 1
 		try:
-			shutil.copy(path, tmpfile)
+			shutil.copy(path, tmpFile)
 		except:
 			print "qnoteroResults.mousePressEvent(): failed to copy file, sorry..."
 			return
 			
 		print "qnoteroResults.mousePressEvent(): prepare to copy %s" % path
 		print "qnoteroResults.mousePressEvent(): prepare to copy (tmp) %s" \
-			% tmpfile
+			% tmpFile
 		mimeData = QMimeData()
-		mimeData.setUrls([QUrl.fromLocalFile(tmpfile)])
-		mimeData.setData("text/plain", tmpfile)
+		mimeData.setUrls([QUrl.fromLocalFile(tmpFile)])
+		mimeData.setData("text/plain", tmpFile)
 		drag = QDrag(self)
 		drag.setMimeData(mimeData)
 		drag.exec_(Qt.CopyAction)
