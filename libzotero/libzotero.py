@@ -45,7 +45,11 @@ class LibZotero:
 			items.itemID = itemData.itemID
 			and itemData.fieldID = fields.fieldID
 			and itemData.valueID = itemDataValues.valueID
-			and (fields.fieldName = "date" or fields.fieldName = "publicationTitle" or fields.fieldName = "volume" or fields.fieldName = "issue" or fields.fieldName = "title")
+			and (fields.fieldName = "date"
+				or fields.fieldName = "publicationTitle"
+				or fields.fieldName = "volume"
+				or fields.fieldName = "issue"
+				or fields.fieldName = "title")
 		"""
 
 	author_query = """
@@ -64,7 +68,8 @@ class LibZotero:
 		where
 			items.itemID = collectionItems.itemID
 			and collections.collectionID = collectionItems.collectionID
-		order by collections.collectionName != "To Read", collections.collectionName
+		order by collections.collectionName != "To Read",
+			collections.collectionName
 		"""
 
 	deleted_query = "select itemID from deletedItems"
