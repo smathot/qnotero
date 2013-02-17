@@ -104,8 +104,10 @@ class LibZotero:
 		# Check whether verbosity is turned on
 		self.verbose = "-v" in sys.argv
 
-		# These dates are treated as special and are not parsed into a year representation
-		self.special_dates = "in press", "submitted", "in preparation", "unpublished"
+		# These dates are treated as special and are not parsed into a year
+		# representation
+		self.special_dates = "in press", "submitted", "in preparation", \
+			"unpublished"
 
 		# These extensions are recognized as fulltext attachments
 		self.attachment_ext = ".pdf", ".epub"
@@ -161,7 +163,8 @@ class LibZotero:
 			for item in self.cur.fetchall():
 				deleted.append(item[0])
 
-			# Retrieve information about date, publication, volume, issue and title
+			# Retrieve information about date, publication, volume, issue and
+			# title
 			self.cur.execute(self.info_query)
 			for item in self.cur.fetchall():
 				item_id = item[0]
@@ -169,15 +172,35 @@ class LibZotero:
 				if item_id not in deleted:
 					item_name = item[1]
 
-					# Parse date fields, because we only want a year or a 'special' date
+					# Parse date fields, because we only want a year or a #
+					# 'special' date
 					if item_name == "date":
 						item_value = None
 						for sd in self.special_dates:
 							if sd in item[2].lower():
 								item_value = sd
 								break
+								
+						# Dates can have months, days, and years, or just a
+						# year, and can be split by '-' and '/' characters.								
 						if item_value == None:
-							item_value = item[2][-4:]
+							# Detect whether the date should be split
+							if '/' in item[2]:
+								split = '/'
+							elif '-' in item[3]:
+								split = '-'
+							else:
+								split = None
+							# If not, just use the last four characters
+							if split == None:
+								item_value = item[2][-4:]
+							# Else take the first slice that is four characters
+							else:
+								l = item[2].split(split)
+								for i in l:
+									if len(i) == 4:
+										item_value = i
+										break								
 					else:
 						item_value = item[2]
 
