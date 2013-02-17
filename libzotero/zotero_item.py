@@ -16,6 +16,7 @@ along with Gnotero.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 term_collection = None, "collection"
+term_tag = None, "tag"
 term_author = None, "author"
 term_date = None, "date", "year"
 term_publication = None, "publication", "journal"
@@ -89,6 +90,11 @@ class zoteroItem:
 				self.collections = item["collections"]
 			else:
 				self.collections = []
+				
+			if "tags" in item:
+				self.tags = item["tags"]
+			else:
+				self.tags = []
 
 			if "key" in item:
 				self.key = item["key"]
@@ -100,6 +106,7 @@ class zoteroItem:
 			self.collections = []
 			self.publication = None
 			self.authors = []
+			self.tags = []
 			self.issue = None
 			self.volume = None
 			self.fulltext = None
@@ -119,7 +126,8 @@ class zoteroItem:
 		false
 		"""
 
-		global term_collection, term_author, term_title, term_date, term_publication
+		global term_collection, term_author, term_title, term_date, \
+			term_publication, term_tag
 
 		# Author is a required field. Without it we don't search
 		if len(self.authors) > 0:
@@ -132,6 +140,11 @@ class zoteroItem:
 
 				match = False
 
+				if term_type in term_tag:
+					for tag in self.tags:
+						if term in tag.lower():
+							match = True
+							
 				if term_type in term_collection:
 					for collection in self.collections:
 						if term in collection.lower():
@@ -151,7 +164,7 @@ class zoteroItem:
 
 				if not match and self.publication != None and term_type in term_publication and term in self.publication.lower():
 					match = True
-
+								
 				if not match:
 					match_all = False
 					break
@@ -222,6 +235,14 @@ class zoteroItem:
 			return "Unknown journal"
 
 		return self.publication
+	
+	def format_tags(self):
+		
+		"""
+		Give a nice representation of the tags
+		"""
+		
+		return ", ".join(self.tags)
 
 	def gnotero_format(self):
 
@@ -243,7 +264,7 @@ class zoteroItem:
 					s += "(%s)" % self.issue
 			s += "</small>"
 
-			self.gnotero_format_str = s.replace("&", "&amp;") #.encode("latin-1", "ignore")
+			self.gnotero_format_str = s.replace("&", "&amp;")
 
 		return self.gnotero_format_str
 
@@ -259,6 +280,10 @@ class zoteroItem:
 					s += ", %s" % self.volume
 				if self.issue != None:
 					s += "(%s)" % self.issue
+			else:
+				s += "\n"
+			if self.tags != None:
+				s += "\n" + self.format_tags()
 
 			self.gnotero_format_str = s
 

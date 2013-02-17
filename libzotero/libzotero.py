@@ -73,6 +73,14 @@ class LibZotero:
 		order by collections.collectionName != "To Read",
 			collections.collectionName
 		"""
+		
+	tag_query = """
+		select items.itemID, tags.name
+		from items, tags, itemTags
+		where
+			items.itemID = itemTags.itemID
+			and tags.tagID = itemTags.tagID
+		"""
 
 	deleted_query = "select itemID from deletedItems"
 
@@ -116,6 +124,7 @@ class LibZotero:
 
 		self.index = {}
 		self.collection_index = []
+		self.tag_index = []
 		self.last_update = None
 
 		# The notry parameter can be used to show errors which would
@@ -243,6 +252,18 @@ class LibZotero:
 					self.index[item_id].collections.append(item_collection)
 					if item_collection not in self.collection_index:
 						self.collection_index.append(item_collection)
+						
+			# Retrieve tag information
+			self.cur.execute(self.tag_query)
+			for item in self.cur.fetchall():
+				item_id = item[0]
+				if item_id not in deleted:
+					item_tag = item[1]
+					if item_id not in self.index:
+						self.index[item_id] = zotero_item(item_id)
+					self.index[item_id].tags.append(item_tag)
+					if item_tag not in self.tag_index:
+						self.tag_index.append(item_tag)						
 
 			# Retrieve attachments
 			self.cur.execute(self.attachment_query)

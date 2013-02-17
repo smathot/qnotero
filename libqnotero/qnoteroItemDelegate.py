@@ -41,12 +41,18 @@ class QnoteroItemDelegate(QStyledItemDelegate):
 		self.regularFont = QFont()
 		self.italicFont = QFont()
 		self.italicFont.setItalic(True)
+		self.tagFont = QFont()
+		self.tagFont.setBold(True)
+		self.tagFont.setPointSize(self.boldFont.pointSize() - 2)
+		
 		self.dy = QFontMetrics(self.boldFont) \
 			.size(Qt.TextSingleLine, "Dummy").height() \
 			*self.qnotero.theme.lineHeight()		
+		
+		
 		self.margin = 0.5*self.dy
 		self._margin = 0.1*self.dy		
-		self.height = 4*self.dy+self._margin
+		self.height = 5*self.dy+self._margin
 		self.noPdfPixmap = self.qnotero.theme.pixmap("nopdf")
 		self.pdfPixmap = self.qnotero.theme.pixmap("pdf")
 		self.aboutPixmap = self.qnotero.theme.pixmap("about")
@@ -66,7 +72,7 @@ class QnoteroItemDelegate(QStyledItemDelegate):
 		Returns:
 		A QSize
 		"""
-	
+		
 		return QSize(0, self.height)
 		
 	def paint(self, painter, option, index):
@@ -85,7 +91,7 @@ class QnoteroItemDelegate(QStyledItemDelegate):
 		record = model.data(index)
 		text = record.toString()				
 		zoteroItem = zoteroCache[unicode(text)]		
-		l = zoteroItem.full_format().split("\n")			
+		l = zoteroItem.full_format().split("\n")
 		if zoteroItem.fulltext == None:
 			pixmap = self.noPdfPixmap
 		else:
@@ -134,7 +140,8 @@ class QnoteroItemDelegate(QStyledItemDelegate):
 		_rect = option.rect.adjusted(self.pixmapSize+self.dy, 0.5*self.dy, \
 			-self.dy, 0)
 		
-		f = [self.regularFont, self.italicFont, self.regularFont, self.boldFont]
+		f = [self.tagFont, self.italicFont, self.regularFont, \
+			self.boldFont]
 		l.reverse()		
 		while len(l) > 0:
 			s = l.pop()
