@@ -54,11 +54,13 @@ class LibZotero:
 
 	author_query = """
 		select items.itemID, creatorData.lastName
-		from items, itemCreators, creators, creatorData
+		from items, itemCreators, creators, creatorData, creatorTypes
 		where
 			items.itemID = itemCreators.itemID
-			and itemCreators.creatorID = creators.creatorID
+			and itemCreators.creatorID = creators.creatorID			
 			and creators.creatorDataID = creatorData.creatorDataID
+			and itemCreators.creatorTypeID = creatorTypes.creatorTypeID
+			and creatorTypes.creatorType != "editor"
 		order by itemCreators.orderIndex
 		"""
 
