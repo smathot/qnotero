@@ -1,3 +1,5 @@
+#-*- coding:utf-8 -*-
+
 """
 This file is part of qnotero.
 
@@ -15,78 +17,84 @@ You should have received a copy of the GNU General Public License
 along with qnotero.  If not, see <http://www.gnu.org/licenses/>.
 """
 
+import sys
+
 config = {
-	"autoFire" : 500,
-	"autoUpdateCheck" : True,
-	"cfgVer" : 0,
-	"firstRun" : True,	
-	"listenerPort" : 43250,
-	"minQueryLength" : 3,
-	"noteProvider" : "gnote",
-	"pdfReader" : "xdg-open",	
-	"theme" : "Default",
-	"updateUrl" : \
-		"http://files.cogsci.nl/software/qnotero/MOST_RECENT_VERSION.TXT",
-	"pos" : "Top right",
-	"zoteroPath" : "",	
+	u"autoFire" : 500,
+	u"autoUpdateCheck" : True,
+	u"cfgVer" : 0,
+	u"firstRun" : True,
+	u"listenerPort" : 43250,
+	u"minQueryLength" : 3,
+	u"noteProvider" : u"gnote",
+	u"pdfReader" : u"xdg-open",
+	u"theme" : u"Default",
+	u"updateUrl" : \
+		u"http://files.cogsci.nl/software/qnotero/MOST_RECENT_VERSION.TXT",
+	u"pos" : u"Top right",
+	u"zoteroPath" : u"",
+	u"mdNoteproviderPath" : u"",
 	}
 
 def getConfig(setting):
 
 	"""
 	Retrieve a setting
-	
+
 	Returns:
 	A setting or False if the setting does not exist
 	"""
 
+	s = config[setting]
+	if isinstance(s, str):
+		s = s.decode(sys.getdefaultencoding())
 	return config[setting]
-	
+
 def setConfig(setting, value):
 
 	"""
 	Set a setting
-	
+
 	Arguments:
 	setting -- the setting name
 	value -- the setting value
-	"""	
-	
+	"""
+
+	assert(not isinstance(value, str))
 	config[setting] = value
-	config["cfgVer"] += 1
-	
+	config[u"cfgVer"] += 1
+
 def restoreConfig(settings):
 
 	"""
 	Restore settings from a QSetting
-	
+
 	Arguments:
 	settings -- a QSetting
 	"""
 
 	for setting, default in config.items():
-		if type(default) == bool:
+		if isinstance(default, bool):
 			value = settings.value(setting, default).toBool()
-		elif type(default) == str:
-			try:
-				value = str(settings.value(setting, default).toString())
-			except:
-				value = default				
-		elif type(default) == int:
-			value = settings.value(setting, default).toInt()[0]	
-		elif type(default) == float:
-			value = settings.value(setting, default).toFloat()[0]	
+		elif isinstance(default, unicode):
+			value = unicode(settings.value(setting, default).toString())
+		elif isinstance(default, int):
+			value = settings.value(setting, default).toInt()[0]
+		elif isinstance(default, float):
+			value = settings.value(setting, default).toFloat()[0]
+		else:
+			raise Exception(u'Unknown default type')
 		setConfig(setting, value)
-	
+
 def saveConfig(settings):
 
 	"""
 	Save settings to a QSetting
-	
+
 	Arguments:
 	setting -- a QSetting
 	"""
-	
+
 	for setting, value in config.items():
 		settings.setValue(setting, value)
 

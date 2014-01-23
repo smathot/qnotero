@@ -1,3 +1,5 @@
+#-*- coding:utf-8 -*-
+
 """
 This file is part of qnotero.
 
@@ -32,18 +34,18 @@ class Qnotero(QMainWindow):
 
 	"""The main class of the Qnotero GUI"""
 
-	version = "0.49~pre1"
+	version = u"1.0.0~pre1"
 
 	def __init__(self, systray=True, debug=False, reset=False, parent=None):
 
 		"""
-		Constructor
+		Constructor.
 
 		Keyword arguments:
-		systray -- enables the system tray icon (default=True)
-		debug -- enable debugging output (default=False)
-		reset -- reset preferences (default=False)
-		parent -- parent QWidget (default=None)
+		systray		--	Enables the system tray icon (default=True)
+		debug		--	Enable debugging output (default=False)
+		reset		--	Reset preferences (default=False)
+		parent		--	Parent QWidget (default=None)
 		"""
 
 		QMainWindow.__init__(self, parent)
@@ -60,14 +62,14 @@ class Qnotero(QMainWindow):
 			self.minimizeOnClose = True
 		else:
 			self.minimizeOnClose = False
-		if getConfig("firstRun"):
+		if getConfig(u"firstRun"):
 			self.preferences(firstRun=True)
-		if getConfig("autoUpdateCheck"):
+		if getConfig(u"autoUpdateCheck"):
 			self.updateCheck()
-			
+
 	def close(self):
 
-		"""Exit the program"""
+		"""Exits the program."""
 
 		self.minimizeOnClose = False
 		QMainWindow.close(self)
@@ -86,20 +88,21 @@ class Qnotero(QMainWindow):
 			e.ignore()
 		else:
 			e.accept()
-			self.listener.alive = False
+			if self.listener != None:
+				self.listener.alive = False
 			sys.exit()
-			
+
 	def hideNoteHint(self):
 
 		"""Hide the note available message"""
 
 		self.ui.labelNoteAvailable.hide()
-		
+
 	def leaveEvent(self, e):
-	
+
 		"""Hide the Window when the mouse is lost"""
-	
-		self.popDown()		
+
+		self.popDown()
 
 	def openNote(self):
 
@@ -117,15 +120,18 @@ class Qnotero(QMainWindow):
 		"""
 
 		if query != None:
-			self.showResultMsg("No results for %s" % query)
+			self.showResultMsg(u"No results for %s" % query)
 		else:
-			self.showResultMsg("Please enter a search term")
+			self.showResultMsg(u"Please enter a search term")
 
 	def popDown(self):
 
 		"""Minimize to the tray"""
 
-		self.hide()
+		if self.minimizeOnClose:
+			self.hide()
+		else:
+			self.close()
 
 	def popUp(self):
 
@@ -134,33 +140,33 @@ class Qnotero(QMainWindow):
 		# Reposition the window
 		r = QDesktopWidget().availableGeometry()
 		s = self.size()
-		pos = getConfig("pos")
-		if pos == "Top right":
+		pos = getConfig(u"pos")
+		if pos == u"Top right":
 			x = r.left() + r.width()-s.width()
 			y = r.top()
-		elif pos == "Top left":
+		elif pos == u"Top left":
 			x = r.left()
 			y = r.top()
-		elif pos == "Bottom right":
+		elif pos == u"Bottom right":
 			x = r.left() + r.width()-s.width()
 			y = r.top() + r.height()-s.height()
-		elif pos == "Bottom left":
+		elif pos == u"Bottom left":
 			x = r.left()
 			y = r.top() + r.height()-s.height()
 		else:
 			x = r.left() + r.width()/2 - s.width()/2
-			y = r.top() + r.height()/2 - s.height()/2		
+			y = r.top() + r.height()/2 - s.height()/2
 		self.move(x, y)
 
 		# Show it
-		self.show()		
+		self.show()
 		QCoreApplication.processEvents()
 		self.raise_()
 		self.activateWindow()
 
 		# Focus the search box
 		self.ui.lineEditQuery.selectAll()
-		self.ui.lineEditQuery.setFocus()	
+		self.ui.lineEditQuery.setFocus()
 
 	def preferences(self, firstRun=False):
 
@@ -192,26 +198,25 @@ class Qnotero(QMainWindow):
 
 	def reInit(self):
 
-		"""Re-init the parts of the GUI that can be changed at runtime"""
+		"""Re-inits the parts of the GUI that can be changed at runtime."""
 
 		self.setTheme()
 		self.setupUi()
-		if getConfig("noteProvider") == "gnote":
+		self.noteProvider = []
+		if getConfig(u'noteProvider') == u'gnote':
 			from libzotero._noteProvider.gnoteProvider import GnoteProvider
-			print "qnotero.reInit(): using GnoteProvider"
-			self.noteProvider = GnoteProvider()
-		else:
-			self.noteProvider = None
-		self.zotero = LibZotero(getConfig("zoteroPath"), self.noteProvider)
-		if hasattr(self, "sysTray"):
-			self.sysTray.setIcon(self.theme.icon("qnotero"))
+			print(u"qnotero.reInit(): using GnoteProvider")
+			self.noteProvider = GnoteProvider(self)
+		self.zotero = LibZotero(getConfig(u"zoteroPath"), self.noteProvider)
+		if hasattr(self, u"sysTray"):
+			self.sysTray.setIcon(self.theme.icon(u"qnotero"))
 
 	def restoreState(self):
 
 		"""Restore the settings"""
 
-		settings = QSettings("cogscinl", "qnotero")
-		settings.beginGroup("Qnotero");
+		settings = QSettings(u"cogscinl", u"qnotero")
+		settings.beginGroup(u"Qnotero");
 		restoreConfig(settings)
 		settings.endGroup()
 
@@ -221,19 +226,23 @@ class Qnotero(QMainWindow):
 
 		if listWidgetItem.zoteroItem.fulltext == None:
 			return
-		pdf = listWidgetItem.zoteroItem.fulltext.encode("latin-1")
-		if os.name == "nt":
+		pdf = listWidgetItem.zoteroItem.fulltext
+		if os.name == u"nt":
 			os.startfile(pdf)
 		else:
-			pid = subprocess.Popen([getConfig("pdfReader"), pdf])
+			# For some reason, the file must be encoded with latin-1, despite
+			# the fact that it's a utf-8 encoded database and filesystem!
+			pdf = pdf.encode(u'latin-1')
+			reader = getConfig(u'pdfReader').encode(sys.getfilesystemencoding())
+			pid = subprocess.Popen([reader, pdf])
 		self.popDown()
 
 	def saveState(self):
 
 		"""Save the settings"""
 
-		settings = QSettings("cogscinl", "qnotero")
-		settings.beginGroup("Qnotero")
+		settings = QSettings(u"cogscinl", u"qnotero")
+		settings.beginGroup(u"Qnotero")
 		saveConfig(settings)
 		settings.endGroup()
 
@@ -254,14 +263,14 @@ class Qnotero(QMainWindow):
 		self.ui.lineEditQuery.needUpdate = False
 		self.ui.lineEditQuery.timer.stop()
 		query = unicode(self.ui.lineEditQuery.text())
-		if len(query) < getConfig("minQueryLength"):
+		if len(query) < getConfig(u"minQueryLength"):
 			self.noResults()
 			return
 		zoteroItemList = self.zotero.search(query)
 		if len(zoteroItemList) == 0:
 			self.noResults(query)
 			return
-		self.showResultMsg("%d results for %s" % (len(zoteroItemList), query))
+		self.showResultMsg(u"%d results for %s" % (len(zoteroItemList), query))
 		for zoteroItem in zoteroItemList:
 			qnoteroItem = QnoteroItem(self, zoteroItem, \
 				self.ui.listWidgetResults)
@@ -285,16 +294,17 @@ class Qnotero(QMainWindow):
 
 		"""Load a theme"""
 
-		theme = getConfig("theme")
-		exec("from libqnotero._themes.%s import %s as Theme" % (theme.lower(), \
-			theme.capitalize()))
-		self.theme = Theme(self)
+		theme = getConfig(u'theme')
+		mod = __import__(u'libqnotero._themes.%s' % theme.lower(), fromlist= \
+			[u'dummy'])
+		cls = getattr(mod, theme.capitalize())
+		self.theme = cls(self)
 
 	def setupUi(self):
 
 		"""Setup the GUI"""
 
-		self.ui.pushButtonSearch.setIcon(self.theme.icon("search"))
+		self.ui.pushButtonSearch.setIcon(self.theme.icon(u"search"))
 		self.ui.pushButtonSearch.clicked.connect(self.search)
 		self.ui.lineEditQuery.qnotero = self
 		self.ui.listWidgetResults.qnotero = self
@@ -313,32 +323,31 @@ class Qnotero(QMainWindow):
 	def showResultMsg(self, msg):
 
 		"""
-		Show a status message
+		Shows a status message.
 
 		Arguments:
-		msg -- a message
+		msg 	--	A message.
 		"""
 
-		self.ui.labelResultMsg.setText("<small><i>%s</i></small>" % msg)
+		self.ui.labelResultMsg.setText(u"<small><i>%s</i></small>" % msg)
 
 	def updateCheck(self):
 
-		"""Check for updates if update checking is on"""
+		"""Checks for updates if update checking is on."""
 
-		if not getConfig("autoUpdateCheck"):
+		if not getConfig(u"autoUpdateCheck"):
 			return True
 
 		import urllib
-		print "qnotero.updateCheck(): opening %s" % getConfig("updateUrl")
+		print(u"qnotero.updateCheck(): opening %s" % getConfig(u"updateUrl"))
 		try:
-			fd = urllib.urlopen(getConfig("updateUrl"))
+			fd = urllib.urlopen(getConfig(u"updateUrl"))
 			mrv = float(fd.read().strip())
 		except:
-			print "qnotero.updateCheck(): failed to check for update"
+			print(u"qnotero.updateCheck(): failed to check for update")
 			return
-		print "qnotero.updateCheck(): most recent version is %.2f" % mrv
+		print(u"qnotero.updateCheck(): most recent version is %.2f" % mrv)
 		if mrv > self.version:
-			QMessageBox.information(self, "Update found", \
-				"A new version of Qnotero %s is available! Please visit http://www.cogsci.nl/ for more information." % mrv)
-
-
+			QMessageBox.information(self, u"Update found", \
+				u"A new version of Qnotero %s is available! Please visit http://www.cogsci.nl/ for more information." \
+				% mrv)

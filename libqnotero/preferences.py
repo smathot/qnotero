@@ -1,3 +1,5 @@
+#-*- coding:utf-8 -*-
+
 """
 This file is part of qnotero.
 
@@ -15,6 +17,7 @@ You should have received a copy of the GNU General Public License
 along with qnotero.  If not, see <http://www.gnu.org/licenses/>.
 """
 
+import sys
 import os
 import os.path
 import pkgutil
@@ -28,134 +31,134 @@ class Preferences(QDialog):
 	"""Qnotero preferences dialog"""
 
 	def __init__(self, qnotero, firstRun=False):
-	
+
 		"""
 		Constructor
-		
+
 		Arguments:
 		qnotero -- a Qnotero instance
-		
+
 		Keyword arguments:
 		firstRun -- indicates if the first run message should be shown
 					(default=False)
 		"""
-	
+
 		QDialog.__init__(self)
-		self.qnotero = qnotero		
-		self.ui = Ui_Preferences()		
+		self.qnotero = qnotero
+		self.ui = Ui_Preferences()
 		self.ui.setupUi(self)
 		self.ui.labelLocatePath.hide()
 		if not firstRun:
-			self.ui.labelFirstRun.hide()						
+			self.ui.labelFirstRun.hide()
 		self.ui.labelTitleMsg.setText( \
-			self.ui.labelTitleMsg.text().replace("[version]", \
-			self.qnotero.version))		
+			self.ui.labelTitleMsg.text().replace(u"[version]", \
+			self.qnotero.version))
 		self.ui.pushButtonZoteroPathAutoDetect.clicked.connect( \
 			self.zoteroPathAutoDetect)
 		self.ui.pushButtonZoteroPathBrowse.clicked.connect( \
-			self.zoteroPathBrowse)							
-		self.ui.checkBoxAutoUpdateCheck.setChecked(getConfig("autoUpdateCheck"))
-		self.ui.lineEditZoteroPath.setText(getConfig("zoteroPath"))
+			self.zoteroPathBrowse)
+		self.ui.checkBoxAutoUpdateCheck.setChecked(getConfig(u"autoUpdateCheck"))
+		self.ui.lineEditZoteroPath.setText(getConfig(u"zoteroPath"))
 		i = 0
 		import libqnotero._themes
 		themePath = os.path.dirname(libqnotero._themes.__file__)
 		for _, theme, _ in pkgutil.iter_modules([themePath]):
 			self.ui.comboBoxTheme.addItem(theme)
-			if theme == getConfig("theme").lower():
+			if theme == getConfig(u"theme").lower():
 				self.ui.comboBoxTheme.setCurrentIndex(i)
-			i += 1		
+			i += 1
 		self.setStyleSheet(self.qnotero.styleSheet())
-		self.adjustSize()		
-				
+		self.adjustSize()
+
 	def accept(self):
-	
+
 		"""Accept the changes"""
-		
+
 		if self.ui.labelLocatePath.isVisible():
 			return
-		setConfig("firstRun", False)
-		setConfig("pos", str(self.ui.comboBoxPos.currentText()))
-		setConfig("autoUpdateCheck", \
-			self.ui.checkBoxAutoUpdateCheck.isChecked())		
-		setConfig("zoteroPath", unicode(self.ui.lineEditZoteroPath.text()))
-		setConfig("theme", \
+		setConfig(u"firstRun", False)
+		setConfig(u"pos", unicode(self.ui.comboBoxPos.currentText()))
+		setConfig(u"autoUpdateCheck", \
+			self.ui.checkBoxAutoUpdateCheck.isChecked())
+		setConfig(u"zoteroPath", unicode(self.ui.lineEditZoteroPath.text()))
+		setConfig(u"theme", \
 			unicode(self.ui.comboBoxTheme.currentText()).capitalize())
 		self.qnotero.saveState()
 		self.qnotero.reInit()
 		QDialog.accept(self)
-		
+
 	def locate(self, path, target):
 
 		"""
 		Tries to find the location of a target file
-		
+
 		Arguments:
 		path -- the path to search
 		target -- the target file
-		
+
 		Returns:
 		The full path to the target file or None if it wasn't found
 		"""
-			
-		self.ui.labelLocatePath.setText("Scanning: ...%s" % path[-32:])
+
+		self.ui.labelLocatePath.setText(u"Scanning: ...%s" % path[-32:])
 		QApplication.processEvents()
 		# Don't scan filesystems that may contain recursions
-		if ".gvfs" in path or ".wine" in path:
-			return None	
-		for (dirpath, dirnames, filenames) in os.walk(path):	
+		if u".gvfs" in path or u".wine" in path:
+			return None
+		for (dirpath, dirnames, filenames) in os.walk(path):
 			for filename in filenames:
 				if filename == target:
-					return dirpath		
-			for dirname in dirnames:			
+					return dirpath
+			for dirname in dirnames:
 				location = self.locate(os.path.join(dirpath, dirname), target)
 				if location != None:
 					return location
-		return None			
-		
+		return None
+
 	def reject(self):
-	
+
 		"""Reject changes"""
-	
+
 		if not self.ui.labelLocatePath.isVisible():
 			QDialog.reject(self)
-		
+
 	def setZoteroPath(self, path):
-	
+
 		"""
 		Validate and set the Zotero path
-		
+
 		Arguments:
 		path -- the Zotero path
 		"""
-		
+
 		if valid_location(unicode(path)):
 			self.ui.lineEditZoteroPath.setText(path)
 		else:
-			QMessageBox.information(self, "Invalid Zotero path", \
-				"The folder you selected does not contain 'zotero.sqlite'")
-				
+			QMessageBox.information(self, u"Invalid Zotero path", \
+				u"The folder you selected does not contain 'zotero.sqlite'")
+
 	def zoteroPathAutoDetect(self):
-	
+
 		"""Auto-detect the Zotero folder"""
-		
+
 		self.ui.labelLocatePath.show()
-		if os.name == "nt":
-			home= os.environ["USERPROFILE"]			
-		elif os.name == "posix":
-			home = os.environ["HOME"]
-		zoteroPath = self.locate(home, "zotero.sqlite")
+		if os.name == u"nt":
+			home= os.environ[u"USERPROFILE"].decode(sys.getfilesystemencoding())
+		elif os.name == u"posix":
+			home = os.environ[u"HOME"].decode(sys.getfilesystemencoding())
+		zoteroPath = self.locate(home, u"zotero.sqlite")
 		if zoteroPath == None:
-			QMessageBox.information(self, "Unable to find Zotero", \
-				"Unable to find Zotero. Please specify the Zotero folder manually.")
+			QMessageBox.information(self, u"Unable to find Zotero", \
+				u"Unable to find Zotero. Please specify the Zotero folder manually.")
 		else:
 			self.ui.lineEditZoteroPath.setText(zoteroPath)
 		self.ui.labelLocatePath.hide()
-		
+
 	def zoteroPathBrowse(self):
-	
+
 		"""Select the Zotero folder manually"""
-		
-		path = QFileDialog.getExistingDirectory(self, "Locate Zotero folder")
-		if path != "":
+
+		path = QFileDialog.getExistingDirectory(self, u"Locate Zotero folder")
+		if path != u"":
 			self.setZoteroPath(path)
-		
+
