@@ -10,13 +10,14 @@ Qnotero v1.0.0~pre1
 - [Download and installation](#download-and-installation)
 	- [Windows](#windows)
 	- [Debian/ Ubuntu/ Linux Mint](#debian-ubuntu-linux-mint)
-- [Mac OS](#mac-os)
-- [Other operating systems](#other-operating-systems)
+	- [Mac OS](#mac-os)
+	- [Other operating systems](#other-operating-systems)
+- [Dependencies](#dependencies)
 - [Gnote integration (Linux only)](#gnote-integration-linux-only)
 - [Install Zotero standalone on Linux](#install-zotero-standalone-on-linux)
 	- [Automated Zotero standalone installer script](#automated-zotero-standalone-installer-script)
 	- [Zotero standalone PPA for Ubuntu/ Linux Mint](#zotero-standalone-ppa-for-ubuntu-linux-mint)
-- [Support](#support)
+- [Support and feedback](#support-and-feedback)
 
 
 
@@ -42,15 +43,22 @@ Ubuntu/ Linux Mint users can install Qnotero through the [Cogsci.nl PPA]:
 	sudo apt-get update
 	sudo apt-get install qnotero
 
-## Mac OS
+### Mac OS
 
 There is no Qnotero package available for Mac OS. It should be possible to run Qnotero from source, if you have all the dependencies installed (notably Python and PyQt4). Please let me know of any experiences running Qnotero on Mac OS (good or bad).
 
-## Other operating systems
+### Other operating systems
 
 For other operating systems, you can (try to) run Qnotero from source. Source code for stable releases can be downloaded from GitHub:
 
-- <- <https://github.com/smathot/qnotero/releases>>
+- <https://github.com/smathot/qnotero/releases>
+
+## Dependencies
+
+Qnotero has the following dependencies.
+
+- [Python 3] (As of Qnotero 1.0.0, Python 2 is no longer supported.)
+- [PyQt4]
 
 ## Gnote integration (Linux only)
 
@@ -89,15 +97,17 @@ For a global installation, these are:
     /opt/zotero
     /usr/local/applications/zotero.desktop
 
-## Support
+## Support and feedback
 
-There are a number of channels through which you can ask questions:
+There are a number of channels through which you can ask questions and provide feedback:
 
 -   The comment section below is a good place for brief comments/ simple questions.
 -   For (potentially) lengthy discussions, please use the [forum].
 
 [cogsci.nl ppa]: https://launchpad.net/~smathot/+archive/ubuntu/cogscinl
 [forum]: http://forum.cogsci.nl/
+[python 3]: https://www.python.org/
+[pyqt4]: http://www.riverbankcomputing.co.uk/software/pyqt/download
 
 [Overview]: #overview
 [What is Qnotero?]: #what-is-qnotero
@@ -106,8 +116,9 @@ There are a number of channels through which you can ask questions:
 [Debian/ Ubuntu/ Linux Mint]: #debian-ubuntu-linux-mint
 [Mac OS]: #mac-os
 [Other operating systems]: #other-operating-systems
+[Dependencies]: #dependencies
 [Gnote integration (Linux only)]: #gnote-integration-linux-only
 [Install Zotero standalone on Linux]: #install-zotero-standalone-on-linux
 [Automated Zotero standalone installer script]: #automated-zotero-standalone-installer-script
 [Zotero standalone PPA for Ubuntu/ Linux Mint]: #zotero-standalone-ppa-for-ubuntu-linux-mint
-[Support]: #support
+[Support and feedback]: #support-and-feedback
