@@ -37,7 +37,7 @@ if __name__ == "__main__":
 		import socket
 		print(u"qnotero: Qnotero already running, sending activate signal")
 		sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-		sock.sendto(u"activate", (u"localhost", getConfig(u"listenerPort")) )
+		sock.sendto(b"activate", (u"localhost", getConfig(u"listenerPort")) )
 		sys.exit()
 
 	# Normal start of Qnotero

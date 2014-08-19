@@ -99,8 +99,8 @@ class LibZotero(object):
 		"""
 
 		assert(isinstance(zotero_path, str))
-
-		print(u"libzotero.__init__(): zotero_path = %s" % zotero_path)
+		print(u"libzotero.__init__(): zotero_path = %s" % bytes(zotero_path,
+			'utf-8'))
 		# Set paths
 		self.zotero_path = zotero_path
 		self.storage_path = os.path.join(self.zotero_path, u"storage")
@@ -270,6 +270,10 @@ class LibZotero(object):
 						# by "storage:"
 						if att[:8] == u"storage:":
 							item_attachment = att[8:]
+							# The item attachment appears to be encoded in
+							# latin-1 encoding, which we don't want, so recode.
+							item_attachment = item_attachment.encode(
+								'latin-1').decode('utf-8')
 							attachment_id = item[2]
 							if item_attachment[-4:].lower() in \
 								self.attachment_ext:

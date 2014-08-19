@@ -46,7 +46,6 @@ class Preferences(QDialog):
 		QDialog.__init__(self)
 		self.qnotero = qnotero
 		uiPath = os.path.join(os.path.dirname(__file__), 'ui', 'preferences.ui')
-		print('Preferences.__init__(): loading preferences ui from %s' % uiPath)
 		self.ui = uic.loadUi(uiPath, self)
 		self.ui.labelLocatePath.hide()
 		if not firstRun:

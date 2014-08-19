@@ -50,7 +50,6 @@ class Qnotero(QMainWindow):
 
 		QMainWindow.__init__(self, parent)
 		uiPath = os.path.join(os.path.dirname(__file__), 'ui', 'qnotero.ui')
-		print('qnotero.__init__(): loading Qnotero ui from %s' % uiPath)
 		self.ui = uic.loadUi(uiPath, self)
 		if not reset:
 			self.restoreState()
@@ -63,7 +62,7 @@ class Qnotero(QMainWindow):
 			self.minimizeOnClose = True
 		else:
 			self.minimizeOnClose = False
-		if getConfig(u"firstRun"):
+		if getConfig(u"firstRun") or not os.path.exists(getConfig('zoteroPath')):
 			self.preferences(firstRun=True)
 		if getConfig(u"autoUpdateCheck"):
 			self.updateCheck()
@@ -228,13 +227,12 @@ class Qnotero(QMainWindow):
 		if listWidgetItem.zoteroItem.fulltext == None:
 			return
 		pdf = listWidgetItem.zoteroItem.fulltext
-		if os.name == u"nt":
+		if os.name == 'nt':
 			os.startfile(pdf)
 		else:
 			# For some reason, the file must be encoded with latin-1, despite
 			# the fact that it's a utf-8 encoded database and filesystem!
-			pdf = pdf.encode(u'latin-1')
-			reader = getConfig(u'pdfReader').encode(sys.getfilesystemencoding())
+			reader = getConfig('pdfReader').encode(sys.getfilesystemencoding())
 			pid = subprocess.Popen([reader, pdf])
 		self.popDown()
 
