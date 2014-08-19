@@ -78,12 +78,12 @@ class QnoteroResults(QListWidget):
 		try:
 			shutil.copy(path, tmpFile)
 		except:
-			print "qnoteroResults.mousePressEvent(): failed to copy file, sorry..."
+			print("qnoteroResults.mousePressEvent(): failed to copy file, sorry...")
 			return
 			
-		print "qnoteroResults.mousePressEvent(): prepare to copy %s" % path
-		print "qnoteroResults.mousePressEvent(): prepare to copy (tmp) %s" \
-			% tmpFile
+		print("qnoteroResults.mousePressEvent(): prepare to copy %s" % path)
+		print("qnoteroResults.mousePressEvent(): prepare to copy (tmp) %s" \
+			% tmpFile)
 		mimeData = QMimeData()
 		mimeData.setUrls([QUrl.fromLocalFile(tmpFile)])
 		mimeData.setData("text/plain", tmpFile)

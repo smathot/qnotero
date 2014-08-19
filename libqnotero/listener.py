@@ -51,8 +51,8 @@ class Listener(Thread):
 			except:
 				s = None				
 			if s != None:
-				print "listener.run(): received '%s'" % s
+				print("listener.run(): received '%s'" % s)
 				if "activate" == s[:8]:
-					print "listener.run(): activating"
+					print("listener.run(): activating")
 					self.qnotero.sysTray.emit(SIGNAL("listenerActivated"))
 					

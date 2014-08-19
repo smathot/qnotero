@@ -147,8 +147,8 @@ class Default:
 				self.themeFolder())
 			if not os.path.exists(self._themeFolder):
 				raise QnoteroException("Failed to find resource folder!")
-		print "libqnotero._themes.default.__init__(): using '%s'" \
-			% self._themeFolder
+		print("libqnotero._themes.default.__init__(): using '%s'" \
+			% self._themeFolder)
 			
 	def setWindowProperties(self):
 	

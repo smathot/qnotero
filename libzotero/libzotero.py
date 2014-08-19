@@ -142,7 +142,7 @@ class LibZotero(object):
 			self.search(u"dummy")
 			self.error = False
 		except Exception as e:
-			print e
+			print(e)
 			self.error = True
 
 	def update(self, force=False):

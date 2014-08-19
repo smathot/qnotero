@@ -59,7 +59,7 @@ class Chameleon(Default):
 		else:
 			icon = "edit-undo"			
 		if not QIcon.hasThemeIcon(icon):
-			print "libqnotero._themes.icon(): failed to find '%s'" % icon
+			print("libqnotero._themes.icon(): failed to find '%s'" % icon)
 		return QIcon.fromTheme("icon", Default.icon(self, iconName))
 		
 	def pixmap(self, pixmapName):
