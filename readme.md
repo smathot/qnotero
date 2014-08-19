@@ -57,7 +57,7 @@ For other operating systems, you can (try to) run Qnotero from source. Source co
 
 Qnotero has the following dependencies.
 
-- [Python 3] (As of Qnotero 1.0.0, Python 2 is no longer supported.)
+- [Python 3] -- As of Qnotero 1.0.0, Python 2 is no longer supported.
 - [PyQt4]
 
 ## Gnote integration (Linux only)
