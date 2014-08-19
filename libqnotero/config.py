@@ -45,9 +45,6 @@ def getConfig(setting):
 	A setting or False if the setting does not exist
 	"""
 
-	s = config[setting]
-	if isinstance(s, str):
-		s = s.decode(sys.getdefaultencoding())
 	return config[setting]
 
 def setConfig(setting, value):
@@ -60,7 +57,6 @@ def setConfig(setting, value):
 	value -- the setting value
 	"""
 
-	assert(not isinstance(value, str))
 	config[setting] = value
 	config[u"cfgVer"] += 1
 
@@ -75,13 +71,14 @@ def restoreConfig(settings):
 
 	for setting, default in config.items():
 		if isinstance(default, bool):
-			value = settings.value(setting, default).toBool()
-		elif isinstance(default, unicode):
-			value = unicode(settings.value(setting, default).toString())
+			# Booleans are saved as lowercase true/ false strings.
+			value = settings.value(setting, default) == 'true'
+		elif isinstance(default, str):
+			value = str(settings.value(setting, default))
 		elif isinstance(default, int):
-			value = settings.value(setting, default).toInt()[0]
+			value = int(settings.value(setting, default))
 		elif isinstance(default, float):
-			value = settings.value(setting, default).toFloat()[0]
+			value = float(settings.value(setting, default))
 		else:
 			raise Exception(u'Unknown default type')
 		setConfig(setting, value)
@@ -97,4 +94,3 @@ def saveConfig(settings):
 
 	for setting, value in config.items():
 		settings.setValue(setting, value)
-

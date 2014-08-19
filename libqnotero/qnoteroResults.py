@@ -16,7 +16,7 @@ along with qnotero.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 from PyQt4.QtGui import QListWidget, QDrag
-from PyQt4.QtCore import Qt, QUrl, QMimeData, QString
+from PyQt4.QtCore import Qt, QUrl, QMimeData
 import urllib
 import shutil
 import tempfile

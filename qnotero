@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 """
 This file is part of qnotero.
@@ -18,11 +18,14 @@ along with qnotero.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 if __name__ == "__main__":
-
+	import sys
+	if '--version' in sys.argv:
+		from libqnotero.qnotero import Qnotero
+		print(Qnotero.version)
+		sys.exit()
 	# The listener will fail if another instance of Qnotero is already running.
 	# In that case we send an activate signal, to pop up the Qnotero window, and
 	# exit.
-	import sys
 	from libqnotero.listener import Listener
 	try:
 		if "--notray" not in sys.argv:

@@ -311,7 +311,6 @@ class zoteroItem(object):
 		"""
 
 		global cache
-		hashKey = unicode(self)
+		hashKey = str(self)
 		cache[hashKey] = self
 		return hashKey
-

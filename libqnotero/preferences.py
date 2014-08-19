@@ -22,7 +22,7 @@ import os
 import os.path
 import pkgutil
 from PyQt4.QtGui import QDialog, QFileDialog, QMessageBox, QApplication
-from libqnotero.preferencesUi import Ui_Preferences
+from PyQt4 import uic
 from libqnotero.config import getConfig, setConfig
 from libzotero.libzotero import valid_location
 
@@ -45,8 +45,9 @@ class Preferences(QDialog):
 
 		QDialog.__init__(self)
 		self.qnotero = qnotero
-		self.ui = Ui_Preferences()
-		self.ui.setupUi(self)
+		uiPath = os.path.join(os.path.dirname(__file__), 'ui', 'preferences.ui')
+		print('Preferences.__init__(): loading preferences ui from %s' % uiPath)
+		self.ui = uic.loadUi(uiPath, self)
 		self.ui.labelLocatePath.hide()
 		if not firstRun:
 			self.ui.labelFirstRun.hide()
@@ -76,13 +77,13 @@ class Preferences(QDialog):
 
 		if self.ui.labelLocatePath.isVisible():
 			return
+		print('saving!')
 		setConfig(u"firstRun", False)
-		setConfig(u"pos", unicode(self.ui.comboBoxPos.currentText()))
+		setConfig(u"pos", self.ui.comboBoxPos.currentText())
 		setConfig(u"autoUpdateCheck", \
 			self.ui.checkBoxAutoUpdateCheck.isChecked())
-		setConfig(u"zoteroPath", unicode(self.ui.lineEditZoteroPath.text()))
-		setConfig(u"theme", \
-			unicode(self.ui.comboBoxTheme.currentText()).capitalize())
+		setConfig(u"zoteroPath", self.ui.lineEditZoteroPath.text())
+		setConfig(u"theme", self.ui.comboBoxTheme.currentText().capitalize())
 		self.qnotero.saveState()
 		self.qnotero.reInit()
 		QDialog.accept(self)
@@ -131,7 +132,7 @@ class Preferences(QDialog):
 		path -- the Zotero path
 		"""
 
-		if valid_location(unicode(path)):
+		if valid_location(path):
 			self.ui.lineEditZoteroPath.setText(path)
 		else:
 			QMessageBox.information(self, u"Invalid Zotero path", \
@@ -143,9 +144,9 @@ class Preferences(QDialog):
 
 		self.ui.labelLocatePath.show()
 		if os.name == u"nt":
-			home= os.environ[u"USERPROFILE"].decode(sys.getfilesystemencoding())
+			home= os.environ[u"USERPROFILE"]
 		elif os.name == u"posix":
-			home = os.environ[u"HOME"].decode(sys.getfilesystemencoding())
+			home = os.environ[u"HOME"]
 		zoteroPath = self.locate(home, u"zotero.sqlite")
 		if zoteroPath == None:
 			QMessageBox.information(self, u"Unable to find Zotero", \

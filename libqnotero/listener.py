@@ -39,20 +39,20 @@ class Listener(Thread):
 		Thread.__init__(self)
 		self.sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 		self.sock.bind(("", self.port))			
-		self.sock.settimeout(0.5)		
+		self.sock.settimeout(1.)
 
 	def run(self):
 
 		"""Listenes for activation signals and pops up the Qnotero window"""
 		
-		while self.alive:				
+		while self.alive:
 			try:
 				s, comm_addr = self.sock.recvfrom(128)
 			except:
-				s = None				
+				s = None
 			if s != None:
 				print("listener.run(): received '%s'" % s)
-				if "activate" == s[:8]:
+				if b"activate" == s[:8]:
 					print("listener.run(): activating")
 					self.qnotero.sysTray.emit(SIGNAL("listenerActivated"))
-					
+

@@ -23,9 +23,9 @@ import subprocess
 from PyQt4.QtGui import QMainWindow, QListWidgetItem, QLabel, QDesktopWidget, \
 	QMessageBox
 from PyQt4.QtCore import QSettings, QSize, QCoreApplication
+from PyQt4 import uic
 from libqnotero.sysTray import SysTray
 from libqnotero.config import saveConfig, restoreConfig, setConfig, getConfig
-from libqnotero.qnoteroUi import Ui_Qnotero
 from libqnotero.qnoteroItemDelegate import QnoteroItemDelegate
 from libqnotero.qnoteroItem import QnoteroItem
 from libzotero.libzotero import LibZotero
@@ -34,7 +34,7 @@ class Qnotero(QMainWindow):
 
 	"""The main class of the Qnotero GUI"""
 
-	version = u"1.0.0~pre1"
+	version = '1.0.0~pre1'
 
 	def __init__(self, systray=True, debug=False, reset=False, parent=None):
 
@@ -49,8 +49,9 @@ class Qnotero(QMainWindow):
 		"""
 
 		QMainWindow.__init__(self, parent)
-		self.ui = Ui_Qnotero()
-		self.ui.setupUi(self)
+		uiPath = os.path.join(os.path.dirname(__file__), 'ui', 'qnotero.ui')
+		print('qnotero.__init__(): loading Qnotero ui from %s' % uiPath)
+		self.ui = uic.loadUi(uiPath, self)
 		if not reset:
 			self.restoreState()
 		self.debug = debug
@@ -262,7 +263,7 @@ class Qnotero(QMainWindow):
 		self.ui.listWidgetResults.clear()
 		self.ui.lineEditQuery.needUpdate = False
 		self.ui.lineEditQuery.timer.stop()
-		query = unicode(self.ui.lineEditQuery.text())
+		query = self.ui.lineEditQuery.text()
 		if len(query) < getConfig(u"minQueryLength"):
 			self.noResults()
 			return

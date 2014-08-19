@@ -168,12 +168,12 @@
   <customwidget>
    <class>QnoteroResults</class>
    <extends>QListWidget</extends>
-   <header>qnoteroResults.h</header>
+   <header>libqnotero/qnoteroResults.h</header>
   </customwidget>
   <customwidget>
    <class>QnoteroQuery</class>
    <extends>QLineEdit</extends>
-   <header>qnoteroQuery.h</header>
+   <header>libqnotero/qnoteroQuery.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

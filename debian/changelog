@@ -1,3 +1,10 @@
+qnotero (1.0.0-ubuntu1) trusty; urgency=medium
+
+  * Ported to Python 3
+  * Various bug-fixes
+
+ -- Sebastiaan Mathot <s.mathot@cogsci.nl>  Tue, 19 Aug 2014 16:43:29 +0200
+
 qnotero (0.48-ubuntu1) oneiric; urgency=low
 
   [ Sebastiaan Mathot ]

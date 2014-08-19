@@ -24,7 +24,7 @@ import sys
 import shutil
 import sys
 import time
-from zotero_item import zoteroItem as zotero_item
+from libzotero.zotero_item import zoteroItem as zotero_item
 
 class LibZotero(object):
 
@@ -92,13 +92,13 @@ class LibZotero(object):
 		Intialize libzotero.
 
 		Arguments:
-		zotero_path		--	A unicode string to the Zotero folder.
+		zotero_path		--	A string to the Zotero folder.
 
 		Keyword arguments:
 		noteProvider	--	A noteProvider object. (default=None)
 		"""
 
-		assert(isinstance(zotero_path, unicode))
+		assert(isinstance(zotero_path, str))
 
 		print(u"libzotero.__init__(): zotero_path = %s" % zotero_path)
 		# Set paths
@@ -107,11 +107,9 @@ class LibZotero(object):
 		self.zotero_database = os.path.join(self.zotero_path, u"zotero.sqlite")
 		self.noteProvider = noteProvider
 		if os.name == u"nt":
-			home_folder = os.environ[u"USERPROFILE"].decode( \
-				sys.getfilesystemencoding())
+			home_folder = os.environ[u"USERPROFILE"]
 		elif os.name == u"posix":
-			home_folder = os.environ[u"HOME"].decode( \
-				sys.getfilesystemencoding())
+			home_folder = os.environ[u"HOME"]
 		else:
 			print(u"libzotero.__init__(): you appear to be running an unsupported OS")
 
@@ -163,7 +161,7 @@ class LibZotero(object):
 			return False
 
 		# Only update if necessary
-		if not force and stats[8] > self.last_update:
+		if force or self.last_update == None or stats[8] > self.last_update:
 			t = time.time()
 			self.last_update = stats[8]
 			self.index = {}
@@ -221,7 +219,7 @@ class LibZotero(object):
 							noteProvider=self.noteProvider)
 						self.index[item_id].key = key
 					if item_name == u"publicationTitle":
-						self.index[item_id].publication = unicode(item_value)
+						self.index[item_id].publication = item_value
 					elif item_name == u"date":
 						self.index[item_id].date = item_value
 					elif item_name == u"volume":
@@ -229,7 +227,7 @@ class LibZotero(object):
 					elif item_name == u"issue":
 						self.index[item_id].issue = item_value
 					elif item_name == u"title":
-						self.index[item_id].title = unicode(item_value)
+						self.index[item_id].title = item_value
 			# Retrieve author information
 			self.cur.execute(self.author_query)
 			for item in self.cur.fetchall():
@@ -364,5 +362,5 @@ def valid_location(path):
 	True if path is a valid Zotero folder, False otherwise.
 	"""
 
-	assert(isinstance(path, unicode))
+	assert(isinstance(path, str))
 	return os.path.exists(os.path.join(path, u"zotero.sqlite"))

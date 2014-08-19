@@ -88,8 +88,8 @@ class QnoteroItemDelegate(QStyledItemDelegate):
 		# Retrieve the data
 		model = index.model()
 		record = model.data(index)
-		text = record.toString()
-		zoteroItem = zoteroCache[unicode(text)]
+		text = record
+		zoteroItem = zoteroCache[text]
 		l = zoteroItem.full_format().split(u"\n")
 		if zoteroItem.fulltext == None:
 			pixmap = self.noPdfPixmap
