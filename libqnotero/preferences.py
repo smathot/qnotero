@@ -24,9 +24,10 @@ import pkgutil
 from PyQt4.QtGui import QDialog, QFileDialog, QMessageBox, QApplication
 from PyQt4 import uic
 from libqnotero.config import getConfig, setConfig
+from libqnotero.uiloader import UiLoader
 from libzotero.libzotero import valid_location
 
-class Preferences(QDialog):
+class Preferences(QDialog, UiLoader):
 
 	"""Qnotero preferences dialog"""
 
@@ -45,17 +46,16 @@ class Preferences(QDialog):
 
 		QDialog.__init__(self)
 		self.qnotero = qnotero
-		uiPath = os.path.join(os.path.dirname(__file__), 'ui', 'preferences.ui')
-		self.ui = uic.loadUi(uiPath, self)
+		self.loadUi('preferences')
 		self.ui.labelLocatePath.hide()
 		if not firstRun:
 			self.ui.labelFirstRun.hide()
-		self.ui.labelTitleMsg.setText( \
-			self.ui.labelTitleMsg.text().replace(u"[version]", \
-			self.qnotero.version))
-		self.ui.pushButtonZoteroPathAutoDetect.clicked.connect( \
+		self.ui.labelTitleMsg.setText(
+			self.ui.labelTitleMsg.text().replace(u"[version]", 
+				self.qnotero.version))
+		self.ui.pushButtonZoteroPathAutoDetect.clicked.connect(
 			self.zoteroPathAutoDetect)
-		self.ui.pushButtonZoteroPathBrowse.clicked.connect( \
+		self.ui.pushButtonZoteroPathBrowse.clicked.connect(
 			self.zoteroPathBrowse)
 		self.ui.checkBoxAutoUpdateCheck.setChecked(getConfig(u"autoUpdateCheck"))
 		self.ui.lineEditZoteroPath.setText(getConfig(u"zoteroPath"))
@@ -79,7 +79,7 @@ class Preferences(QDialog):
 		print('saving!')
 		setConfig(u"firstRun", False)
 		setConfig(u"pos", self.ui.comboBoxPos.currentText())
-		setConfig(u"autoUpdateCheck", \
+		setConfig(u"autoUpdateCheck",
 			self.ui.checkBoxAutoUpdateCheck.isChecked())
 		setConfig(u"zoteroPath", self.ui.lineEditZoteroPath.text())
 		setConfig(u"theme", self.ui.comboBoxTheme.currentText().capitalize())
@@ -134,7 +134,7 @@ class Preferences(QDialog):
 		if valid_location(path):
 			self.ui.lineEditZoteroPath.setText(path)
 		else:
-			QMessageBox.information(self, u"Invalid Zotero path", \
+			QMessageBox.information(self, u"Invalid Zotero path",
 				u"The folder you selected does not contain 'zotero.sqlite'")
 
 	def zoteroPathAutoDetect(self):
@@ -148,7 +148,7 @@ class Preferences(QDialog):
 			home = os.environ[u"HOME"]
 		zoteroPath = self.locate(home, u"zotero.sqlite")
 		if zoteroPath == None:
-			QMessageBox.information(self, u"Unable to find Zotero", \
+			QMessageBox.information(self, u"Unable to find Zotero",
 				u"Unable to find Zotero. Please specify the Zotero folder manually.")
 		else:
 			self.ui.lineEditZoteroPath.setText(zoteroPath)
@@ -161,4 +161,3 @@ class Preferences(QDialog):
 		path = QFileDialog.getExistingDirectory(self, u"Locate Zotero folder")
 		if path != u"":
 			self.setZoteroPath(path)
-

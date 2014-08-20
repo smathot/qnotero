@@ -28,13 +28,14 @@ from libqnotero.sysTray import SysTray
 from libqnotero.config import saveConfig, restoreConfig, setConfig, getConfig
 from libqnotero.qnoteroItemDelegate import QnoteroItemDelegate
 from libqnotero.qnoteroItem import QnoteroItem
+from libqnotero.uiloader import UiLoader
 from libzotero.libzotero import LibZotero
 
-class Qnotero(QMainWindow):
+class Qnotero(QMainWindow, UiLoader):
 
 	"""The main class of the Qnotero GUI"""
 
-	version = '1.0.0~pre1'
+	version = '1.0.0'
 
 	def __init__(self, systray=True, debug=False, reset=False, parent=None):
 
@@ -49,8 +50,7 @@ class Qnotero(QMainWindow):
 		"""
 
 		QMainWindow.__init__(self, parent)
-		uiPath = os.path.join(os.path.dirname(__file__), 'ui', 'qnotero.ui')
-		self.ui = uic.loadUi(uiPath, self)
+		self.loadUi('qnotero')
 		if not reset:
 			self.restoreState()
 		self.debug = debug
@@ -336,17 +336,18 @@ class Qnotero(QMainWindow):
 
 		if not getConfig(u"autoUpdateCheck"):
 			return True
-
-		import urllib
+		import urllib.request
+		from distutils.version import LooseVersion
 		print(u"qnotero.updateCheck(): opening %s" % getConfig(u"updateUrl"))
 		try:
-			fd = urllib.urlopen(getConfig(u"updateUrl"))
-			mrv = float(fd.read().strip())
+			fd = urllib.request.urlopen(getConfig(u"updateUrl"))
+			mrv = fd.read().decode('utf-8').strip()
 		except:
-			print(u"qnotero.updateCheck(): failed to check for update")
+			print('qnotero.updateCheck(): failed to check for update')
 			return
-		print(u"qnotero.updateCheck(): most recent version is %.2f" % mrv)
-		if mrv > self.version:
-			QMessageBox.information(self, u"Update found", \
-				u"A new version of Qnotero %s is available! Please visit http://www.cogsci.nl/ for more information." \
-				% mrv)
+		print("qnotero.updateCheck(): most recent = %s, current = %s" \
+			% (mrv, self.version))
+		if LooseVersion(mrv) > LooseVersion(self.version):		
+			QMessageBox.information(self, 'Update found',
+				('A new version of Qnotero is available! Please visit '
+				'http://www.cogsci.nl/qnotero for more information.'))

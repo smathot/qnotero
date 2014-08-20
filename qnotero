@@ -19,6 +19,9 @@ along with qnotero.  If not, see <http://www.gnu.org/licenses/>.
 
 if __name__ == "__main__":
 	import sys
+	# Check if we're running a supported Python (>= 3.3)
+	if sys.version_info < (3,3,0):
+		raise Exception('Qnotero requires Python >= 3.3')	
 	if '--version' in sys.argv:
 		from libqnotero.qnotero import Qnotero
 		print(Qnotero.version)
