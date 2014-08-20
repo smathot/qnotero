@@ -34,8 +34,8 @@ setup(name="qnotero",
 		"libqnotero._themes",
 		"libzotero._noteProvider",
 		],
-	package_dir = {
-		"libqnotero" : "libqnotero/ui",
+	package_data = {
+		"libqnotero" : ["ui/*.ui"],
 		},
 	data_files=[
 		("/usr/share/qnotero", ["COPYING"]),

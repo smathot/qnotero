@@ -34,7 +34,7 @@ Ubuntu/ Linux Mint users can install Qnotero through the [Cogsci.nl PPA]:
 
 ### Mac OS
 
-There is no Qnotero package available for Mac OS. It should be possible to run Qnotero from source, if you have all the dependencies installed (notably Python and PyQt4). Please let me know of any experiences running Qnotero on Mac OS (good or bad).
+There is no Qnotero package available for Mac OS. It should be possible to run Qnotero from source, if you have all the dependencies installed (notably Python 3 and PyQt4). Please let me know of any experiences running Qnotero on Mac OS (good or bad).
 
 ### Other operating systems
 
@@ -46,7 +46,7 @@ For other operating systems, you can (try to) run Qnotero from source. Source co
 
 Qnotero has the following dependencies.
 
-- [Python 3] -- As of Qnotero 1.0.0, Python 2 is no longer supported.
+- [Python] -- As of Qnotero 1.0.0, Python >= 3.3 is required.
 - [PyQt4]
 
 ## Gnote integration (Linux only)
@@ -95,5 +95,5 @@ There are a number of channels through which you can ask questions and provide f
 
 [cogsci.nl ppa]: https://launchpad.net/~smathot/+archive/ubuntu/cogscinl
 [forum]: http://forum.cogsci.nl/
-[python 3]: https://www.python.org/
+[python]: https://www.python.org/
 [pyqt4]: http://www.riverbankcomputing.co.uk/software/pyqt/download

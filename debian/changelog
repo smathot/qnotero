@@ -1,6 +1,8 @@
-qnotero (1.0.0-ubuntu1) trusty; urgency=medium
+qnotero (1.0.0-ubuntu7) trusty; urgency=medium
 
   * Ported to Python 3
+  * Add tag support
+  * Do not treat editors as authors
   * Various bug-fixes
 
  -- Sebastiaan Mathot <s.mathot@cogsci.nl>  Tue, 19 Aug 2014 16:43:29 +0200
