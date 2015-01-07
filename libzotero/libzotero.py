@@ -219,7 +219,7 @@ class LibZotero(object):
 							noteProvider=self.noteProvider)
 						self.index[item_id].key = key
 					if item_name == u"publicationTitle":
-						self.index[item_id].publication = item_value
+						self.index[item_id].publication = str(item_value)
 					elif item_name == u"date":
 						self.index[item_id].date = item_value
 					elif item_name == u"volume":
@@ -227,7 +227,7 @@ class LibZotero(object):
 					elif item_name == u"issue":
 						self.index[item_id].issue = item_value
 					elif item_name == u"title":
-						self.index[item_id].title = item_value
+						self.index[item_id].title = str(item_value)
 			# Retrieve author information
 			self.cur.execute(self.author_query)
 			for item in self.cur.fetchall():
