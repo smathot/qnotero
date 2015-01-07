@@ -1,3 +1,12 @@
+qnotero (2.0.0-ubuntu1) utopic; urgency=medium
+
+  * Ported to PyQt5
+  * Properly capitilize names (#18)
+  * Don't crash when title is number (#19)
+  * Add Ctrl+F shortcut to focus search box when activated (#20)
+
+ -- Sebastiaan Mathot <sebastiaan@mantis>  Wed, 07 Jan 2015 16:13:12 +0100
+
 qnotero (1.0.0-ubuntu7) trusty; urgency=medium
 
   * Ported to Python 3
