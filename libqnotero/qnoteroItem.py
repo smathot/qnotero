@@ -15,7 +15,7 @@ You should have received a copy of the GNU General Public License
 along with qnotero.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-from PyQt4.QtGui import QListWidgetItem
+from PyQt5.QtWidgets  import QListWidgetItem
 
 class QnoteroItem(QListWidgetItem):
 

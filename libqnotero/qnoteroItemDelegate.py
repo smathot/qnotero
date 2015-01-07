@@ -17,9 +17,9 @@ You should have received a copy of the GNU General Public License
 along with qnotero.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-from PyQt4.QtGui import QStyledItemDelegate, QStyle, QPen, QPalette, \
-	QApplication, QFont, QFontMetrics
-from PyQt4.QtCore import Qt, QRect, QSize
+from PyQt5.QtWidgets import QStyledItemDelegate, QApplication, QStyle
+from PyQt5.QtGui import QPen, QPalette, QFont, QFontMetrics
+from PyQt5.QtCore import Qt, QRect, QSize
 from libqnotero.config import getConfig
 from libzotero.zotero_item import cache as zoteroCache
 

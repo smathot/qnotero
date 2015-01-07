@@ -20,10 +20,10 @@ along with qnotero.  If not, see <http://www.gnu.org/licenses/>.
 import sys
 import os
 import subprocess
-from PyQt4.QtGui import QMainWindow, QListWidgetItem, QLabel, QDesktopWidget, \
-	QMessageBox
-from PyQt4.QtCore import QSettings, QSize, QCoreApplication
-from PyQt4 import uic
+from PyQt5.QtWidgets import QMainWindow, QListWidgetItem, QLabel, \
+	QDesktopWidget, QMessageBox
+from PyQt5.QtCore import QSettings, QSize, QCoreApplication
+from PyQt5 import uic
 from libqnotero.sysTray import SysTray
 from libqnotero.config import saveConfig, restoreConfig, setConfig, getConfig
 from libqnotero.qnoteroItemDelegate import QnoteroItemDelegate
@@ -35,7 +35,7 @@ class Qnotero(QMainWindow, UiLoader):
 
 	"""The main class of the Qnotero GUI"""
 
-	version = '1.0.0'
+	version = '2.0.0'
 
 	def __init__(self, systray=True, debug=False, reset=False, parent=None):
 

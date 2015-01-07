@@ -45,7 +45,7 @@ if __name__ == "__main__":
 
 	# Normal start of Qnotero
 	from libqnotero.qnotero import Qnotero
-	from PyQt4.QtGui import QApplication
+	from PyQt5.QtWidgets import QApplication
 	reset = "--reset" in sys.argv
 	systray = "--notray" not in sys.argv
 	app = QApplication(sys.argv)

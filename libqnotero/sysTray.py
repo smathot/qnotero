@@ -15,13 +15,15 @@ You should have received a copy of the GNU General Public License
 along with qnotero.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-from PyQt4.QtGui import QSystemTrayIcon, QMenu
-from PyQt4.QtCore import Qt, QObject, SIGNAL
+from PyQt5.QtWidgets import QSystemTrayIcon, QMenu
+from PyQt5.QtCore import Qt, QObject, pyqtSignal
 from libqnotero.config import getConfig
 
 class SysTray(QSystemTrayIcon):
 
 	"""The Qnotero system tray icon"""
+
+	listenerActivated = pyqtSignal()
 	
 	def __init__(self, qnotero):
 	
@@ -36,15 +38,15 @@ class SysTray(QSystemTrayIcon):
 		self.qnotero = qnotero		
 		self.setIcon(self.qnotero.theme.icon("qnotero"))		
 		self.menu = QMenu()
-		self.menu.addAction(self.qnotero.theme.icon("qnotero"), \
-			"Show", self.qnotero.popUp)
-		self.menu.addAction(self.qnotero.theme.icon("preferences"), \
-			"Preferences", self.qnotero.preferences)			
-		self.menu.addAction(self.qnotero.theme.icon("close"), \
-			"Close", self.qnotero.close)
+		self.menu.addAction(self.qnotero.theme.icon("qnotero"), "Show",
+			self.qnotero.popUp)
+		self.menu.addAction(self.qnotero.theme.icon("preferences"),
+			"Preferences", self.qnotero.preferences)
+		self.menu.addAction(self.qnotero.theme.icon("close"), "Close",
+			self.qnotero.close)
 		self.setContextMenu(self.menu)
 		self.activated.connect(self.activate)
-		QObject.connect(self, SIGNAL("listenerActivated"), self.activate)
+		self.listenerActivated.connect(self.activate)
 				
 	def activate(self, reason=None):
 	
@@ -62,4 +64,3 @@ class SysTray(QSystemTrayIcon):
 			self.qnotero.popDown()
 		else:
 			self.qnotero.popUp()
-			

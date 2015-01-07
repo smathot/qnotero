@@ -21,8 +21,8 @@ import sys
 import os
 import os.path
 import pkgutil
-from PyQt4.QtGui import QDialog, QFileDialog, QMessageBox, QApplication
-from PyQt4 import uic
+from PyQt5.QtWidgets import QDialog, QFileDialog, QMessageBox, QApplication
+from PyQt5 import uic
 from libqnotero.config import getConfig, setConfig
 from libqnotero.uiloader import UiLoader
 from libzotero.libzotero import valid_location

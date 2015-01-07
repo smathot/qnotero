@@ -16,8 +16,8 @@ along with qnotero.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 from libqnotero._themes.default import Default
-from PyQt4.QtGui import QIcon, QPixmap, QLabel
-from PyQt4.QtCore import Qt
+from PyQt5.QtWidgets import QIcon, QPixmap, QLabel
+from PyQt5.QtCore import Qt
 
 class Chameleon(Default):
 

@@ -18,7 +18,6 @@ along with qnotero.  If not, see <http://www.gnu.org/licenses/>.
 import socket
 from libqnotero.config import getConfig
 from threading import Thread
-from PyQt4.QtCore import SIGNAL
 
 class Listener(Thread):
 
@@ -54,5 +53,5 @@ class Listener(Thread):
 				print("listener.run(): received '%s'" % s)
 				if b"activate" == s[:8]:
 					print("listener.run(): activating")
-					self.qnotero.sysTray.emit(SIGNAL("listenerActivated"))
+					self.qnotero.sysTray.listenerActivated.emit()
 

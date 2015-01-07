@@ -18,7 +18,7 @@ along with qnotero.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 import os
-from PyQt4 import QtCore, QtGui, uic
+from PyQt5 import QtCore, QtGui, uic
 
 class UiLoader(QtCore.QObject):
     
