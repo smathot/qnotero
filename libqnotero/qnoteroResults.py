@@ -101,7 +101,8 @@ class QnoteroResults(QListWidget):
 		e -- a QKeyEvent
 		"""
 
-		if e.key() == Qt.Key_Up and self.currentRow() == 0:
+		if (e.key() == Qt.Key_Up and self.currentRow() == 0) \
+			or (e.key() == Qt.Key_F and Qt.ControlModifier & e.modifiers()):
 			self.qnotero.ui.lineEditQuery.selectAll()
 			self.qnotero.ui.lineEditQuery.setFocus()
 			return
