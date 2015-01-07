@@ -233,7 +233,7 @@ class LibZotero(object):
 			for item in self.cur.fetchall():
 				item_id = item[0]
 				if item_id not in deleted:
-					item_author = item[1].capitalize()
+					item_author = item[1].title()
 					if item_id not in self.index:
 						self.index[item_id] = zotero_item(item_id)
 					self.index[item_id].authors.append(item_author)
