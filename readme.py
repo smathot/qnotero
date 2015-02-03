@@ -19,3 +19,4 @@ along with qnotero.  If not, see <http://www.gnu.org/licenses/>.
 
 from academicmarkdown import build
 build.MD('readme-src.md', 'readme.md')
+build.HTML('readme-src.md', 'readme.html')

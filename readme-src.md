@@ -47,7 +47,7 @@ For other operating systems, you can (try to) run Qnotero from source. Source co
 Qnotero has the following dependencies.
 
 - [Python] -- As of Qnotero 1.0.0, Python >= 3.3 is required.
-- [PyQt5]
+- [PyQt4] -- Pass `--qt5` as command-line argument for experimental PyQt5 support.
 
 ## Gnote integration (Linux only)
 
@@ -96,4 +96,4 @@ There are a number of channels through which you can ask questions and provide f
 [cogsci.nl ppa]: https://launchpad.net/~smathot/+archive/ubuntu/cogscinl
 [forum]: http://forum.cogsci.nl/
 [python]: https://www.python.org/
-[PyQt5]: http://www.riverbankcomputing.co.uk/software/pyqt/download
+[PyQt4]: http://www.riverbankcomputing.co.uk/software/pyqt/download
