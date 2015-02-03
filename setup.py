@@ -33,6 +33,7 @@ setup(name="qnotero",
 		"libzotero",
 		"libqnotero._themes",
 		"libzotero._noteProvider",
+		"libqnotero.qt"
 		],
 	package_data = {
 		"libqnotero" : ["ui/*.ui"],

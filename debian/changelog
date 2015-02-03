@@ -1,4 +1,4 @@
-qnotero (2.0.0-ubuntu1) utopic; urgency=medium
+qnotero (2.0.0-ubuntu2) utopic; urgency=medium
 
   * Ported to PyQt5
   * Properly capitilize names (#18)
