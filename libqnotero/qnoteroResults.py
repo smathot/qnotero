@@ -15,9 +15,9 @@ You should have received a copy of the GNU General Public License
 along with qnotero.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-from PyQt5.QtWidgets import QListWidget
-from PyQt5.QtGui import QDrag
-from PyQt5.QtCore import Qt, QUrl, QMimeData
+from libqnotero.qt.QtGui import QListWidget
+from libqnotero.qt.QtGui import QDrag
+from libqnotero.qt.QtCore import Qt, QUrl, QMimeData
 import urllib
 import shutil
 import tempfile

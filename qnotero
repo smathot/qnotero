@@ -21,11 +21,12 @@ if __name__ == "__main__":
 	import sys
 	# Check if we're running a supported Python (>= 3.3)
 	if sys.version_info < (3,3,0):
-		raise Exception('Qnotero requires Python >= 3.3')	
+		raise Exception('Qnotero requires Python >= 3.3')
 	if '--version' in sys.argv:
 		from libqnotero.qnotero import Qnotero
 		print(Qnotero.version)
 		sys.exit()
+	print('Using Python %s' % sys.version)
 	# The listener will fail if another instance of Qnotero is already running.
 	# In that case we send an activate signal, to pop up the Qnotero window, and
 	# exit.
@@ -45,7 +46,7 @@ if __name__ == "__main__":
 
 	# Normal start of Qnotero
 	from libqnotero.qnotero import Qnotero
-	from PyQt5.QtWidgets import QApplication
+	from libqnotero.qt.QtGui import QApplication
 	reset = "--reset" in sys.argv
 	systray = "--notray" not in sys.argv
 	app = QApplication(sys.argv)
@@ -58,4 +59,3 @@ if __name__ == "__main__":
 		listener.qnotero = qnotero
 		listener.start()
 	sys.exit(app.exec_())
-

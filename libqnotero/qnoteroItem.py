@@ -15,26 +15,25 @@ You should have received a copy of the GNU General Public License
 along with qnotero.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-from PyQt5.QtWidgets  import QListWidgetItem
+from libqnotero.qt.QtGui  import QListWidgetItem
 
 class QnoteroItem(QListWidgetItem):
 
 	"""A single Qnotero result"""
 
 	def __init__(self, qnotero, zoteroItem, parent=None):
-	
+
 		"""
 		Constructor
-		
+
 		Arguments:
 		qnotero -- a Qnotero instance
 		zoteroItem -- a ZoteroItem
-		
+
 		Keyword arguments:
 		parent -- a parent QWidget (default=None)
 		"""
-	
+
 		QListWidgetItem.__init__(self, zoteroItem.hashKey(), parent)
 		self.qnotero = qnotero
 		self.zoteroItem = zoteroItem
-

@@ -1,6 +1,6 @@
 Qnotero v%-- exec: ./qnotero --version --%
 
-*Copyright 2011-2014 Sebastiaan Mathôt*
+*Copyright 2011-2015 Sebastiaan Mathôt*
 
 ## Overview
 

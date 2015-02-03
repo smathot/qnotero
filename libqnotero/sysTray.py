@@ -15,8 +15,8 @@ You should have received a copy of the GNU General Public License
 along with qnotero.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-from PyQt5.QtWidgets import QSystemTrayIcon, QMenu
-from PyQt5.QtCore import Qt, QObject, pyqtSignal
+from libqnotero.qt.QtGui import QSystemTrayIcon, QMenu
+from libqnotero.qt.QtCore import Qt, QObject, pyqtSignal
 from libqnotero.config import getConfig
 
 class SysTray(QSystemTrayIcon):

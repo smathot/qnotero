@@ -15,8 +15,8 @@ You should have received a copy of the GNU General Public License
 along with qnotero.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-from PyQt5.QtWidgets import QLineEdit
-from PyQt5.QtCore import Qt, QTimer
+from libqnotero.qt.QtGui import QLineEdit
+from libqnotero.qt.QtCore import Qt, QTimer
 from libqnotero.config import getConfig
 
 class QnoteroQuery(QLineEdit):

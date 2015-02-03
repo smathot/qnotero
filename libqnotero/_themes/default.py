@@ -19,9 +19,9 @@ import sys
 import os
 import os.path
 from libqnotero.qnoteroException import QnoteroException
-from PyQt5.QtGui import QIcon, QPixmap
-from PyQt5.QtWidgets import QLabel
-from PyQt5.QtCore import Qt
+from libqnotero.qt.QtGui import QIcon, QPixmap
+from libqnotero.qt.QtGui import QLabel
+from libqnotero.qt.QtCore import Qt
 
 class Default:
 
