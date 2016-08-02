@@ -44,6 +44,10 @@ if __name__ == "__main__":
 		sock.sendto(b"activate", (u"localhost", getConfig(u"listenerPort")) )
 		sys.exit()
 
+	# Enable CTRL+C.
+	import signal
+	signal.signal(signal.SIGINT, signal.SIG_DFL)
+
 	# Normal start of Qnotero
 	from libqnotero.qnotero import Qnotero
 	from libqnotero.qt.QtGui import QApplication
