@@ -1,3 +1,5 @@
+*Update: This repository is no longer maintained. For a fork that is actively developed see <https://github.com/ealbiter/qnotero>*
+
 Qnotero v2.0.0
 
 
